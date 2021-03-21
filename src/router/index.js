@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../pages/Home.vue'
 import Countries from '../pages/Countries.vue'
+import About from '../pages/About.vue'
 
 const routerHistory = createWebHistory()
 
@@ -15,9 +16,13 @@ const router = createRouter({
       path: '/countries',
       component: Countries
     },
+    {
+      path: '/about',
+      component: About
+    },
     // {
     //   path: '/contact',
-    //   component: Contact
+    //   component: About
     // }
   ]
 })

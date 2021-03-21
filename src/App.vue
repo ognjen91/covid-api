@@ -1,7 +1,9 @@
 <template>
-  <div id='root'>
+  <div id='root' class='border'>
     <Header />
-    <router-view />
+    <main>
+      <router-view />
+    </main>
     <Footer />
   </div>
 </template>

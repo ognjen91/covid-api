@@ -3,11 +3,18 @@ module.exports = {
   theme: {
     extend: {},
     colors: {
-     darkBlue: 'color',
-     lighterBlue: 'color',
-     lightestBlue: 'color',
-     darkBlueShadow: 'color',
-     lightBlueShadow: 'color',
+     // dark-blue: '#12232E',
+     // lighter-blue: '#007CC7',
+     // lightest-blue: '#4DA8DA',
+     // dark-blue-shadow: '#203647',
+     // light-blue-shadow: '#EEFBFB',
+     darkBlue: '#12232E',
+     lighterBlue: '#007CC7',
+     lightestBlue: '#4DA8DA',
+     darkBlueShadow: '#203647',
+     lightBlueShadow: '#EEFBFB',
+     yellow: '#FCD200',
+     white: '#fff',
    },
   },
   variants: {

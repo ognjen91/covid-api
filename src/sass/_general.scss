@@ -1,3 +1,16 @@
+// FONTS
+@import url('https://fonts.googleapis.com/css2?family=Quattrocento&family=Quattrocento+Sans&display=swap');
+
+h1,h2,h3,h4,h5,h6{
+  font-family: 'Quattrocento', serif;
+}
+
+p, a{
+  font-family: 'Quattrocento Sans', sans-serif;
+}
+
+
+// COLORS
 $darkBlue : #12232E;
 $lighterBlue : #007CC7;
 $lightestBlue : #4DA8DA;
@@ -5,3 +18,14 @@ $darkBlueShadow : #203647;
 $lightBlueShadow : #EEFBFB;
 
 // $yellow : #FFD6C;
+$yellow : #FCD200;
+$white : #fff;
+
+
+#root{
+  min-height: 100vh;
+}
+
+main{
+  min-height: 90vh;
+}

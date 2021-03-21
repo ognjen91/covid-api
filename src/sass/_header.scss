@@ -1,11 +1,11 @@
-header #nav{
+.header nav{
   background-color: $darkBlue;
 }
 
-header #nav a{
+.header nav a{
   color : #fff;
 }
 
-header #nav a.router-link-active{
-  // color: $yellow;
+.header nav a.router-link-active{
+  color: $yellow;
 }

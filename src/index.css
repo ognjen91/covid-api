@@ -1,12 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Quattrocento&family=Quattrocento+Sans&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-header #nav {
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Quattrocento", serif;
+}
+
+p, a {
+  font-family: "Quattrocento Sans", sans-serif;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+main {
+  min-height: 90vh;
+}
+
+.header nav {
   background-color: #12232E;
 }
 
-header #nav a {
+.header nav a {
   color: #fff;
+}
+
+.header nav a.router-link-active {
+  color: #FCD200;
 }
 
 /*# sourceMappingURL=index.css.map */
