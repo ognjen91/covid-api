@@ -9,6 +9,12 @@ p, a{
   font-family: 'Quattrocento Sans', sans-serif;
 }
 
+.font-heading{
+  font-family: 'Quattrocento', serif !important;
+}
+.font-paragraph{
+  font-family: 'Quattrocento Sans', sans-serif !important;
+}
 
 // COLORS
 $darkBlue : #12232E;
@@ -16,7 +22,6 @@ $lighterBlue : #007CC7;
 $lightestBlue : #4DA8DA;
 $darkBlueShadow : #203647;
 $lightBlueShadow : #EEFBFB;
-// $yellow : #FFD6C;
 $yellow : #FCD200;
 $red : #e84545;
 $white : #fff;

@@ -23,12 +23,12 @@ export default {
   mutations : {
 
     SET_TOTAL_DATA : (state, payload) => {
-      state.globalData.totalConfirmed = payload.totalConfirmed
-      state.globalData.newConfirmed = payload.newConfirmed
-      state.globalData.newDeaths = payload.newDeaths
-      state.globalData.totalDeaths = payload.totalDeaths
-      state.globalData.newRecovered = payload.newRecovered
-      state.globalData.totalRecovered = payload.totalRecovered
+      state.globalData.TotalConfirmed = payload.TotalConfirmed
+      state.globalData.NewConfirmed = payload.NewConfirmed
+      state.globalData.NewDeaths = payload.NewDeaths
+      state.globalData.TotalDeaths = payload.TotalDeaths
+      state.globalData.NewRecovered = payload.NewRecovered
+      state.globalData.TotalRecovered = payload.TotalRecovered
       state.updateTime = payload.updateTime
     },
 
@@ -38,17 +38,18 @@ export default {
     setInitialData (context) {
       axios.get('https://api.covid19api.com/summary')
         .then(function ({data}) {
-          // console.log(data.Global);
           console.log('from vuex action global/setInitialData', data.Global);
           context.commit('SET_TOTAL_DATA', {
-            totalConfirmed : data.Global.TotalConfirmed,
-            newConfirmed : data.Global.NewConfirmed,
-            newDeaths : data.Global.NewDeaths,
-            totalDeaths : data.Global.TotalDeaths,
-            newRecovered : data.Global.NewRecovered,
-            totalRecovered : data.Global.TotalRecovered,
+            TotalConfirmed : data.Global.TotalConfirmed,
+            NewConfirmed : data.Global.NewConfirmed,
+            NewDeaths : data.Global.NewDeaths,
+            TotalDeaths : data.Global.TotalDeaths,
+            NewRecovered : data.Global.NewRecovered,
+            TotalRecovered : data.Global.TotalRecovered,
             updateTime : data.Date
           })
+
+          context.commit('countries/SET_COUNTRIES_DATA', data.Countries, { root: true })
         })
         .catch(function (error) {
           console.log(error);

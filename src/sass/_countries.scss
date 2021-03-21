@@ -1,0 +1,12 @@
+.countries{
+  background-color: rgba($darkBlue, .8); 
+}
+
+.countries th svg{
+  width: 1rem;
+  height: 1rem;
+}
+
+.countries th svg.desc{
+  transform: rotate(180deg);
+}

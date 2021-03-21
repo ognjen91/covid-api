@@ -1,0 +1,90 @@
+<template>
+  <div class="top-list bottom pt-5">
+    <h2 class='home-subtitle w-full text-center text-white my-4'>{{selectedFilter}} BY COUNTRY</h2>
+
+    <!-- SELECT FILTERING -->
+    <div class="options f-full flex justify-center">
+        <div
+         class="option text-white cursor-pointer border mx-2 px-2 py-1"
+         @click="selectedFilter = 'TotalConfirmed'"
+         :class="{'active bg-yellow border-yellow' : selectedFilter == 'TotalConfirmed'}"
+         >
+         TotalConfirmed
+       </div>
+        <div
+         class="option text-white cursor-pointer border mx-2 px-2 py-1"
+         @click="selectedFilter = 'TotalDeaths'"
+         :class="{'active bg-red border-red' : selectedFilter == 'TotalDeaths'}"
+         >
+         TotalDeaths
+       </div>
+    </div>
+
+    <!-- SELECT NUMBER TO SHOW -->
+    <div class="number f-full flex justify-center items-center py-3">
+      <p class='text-white'>Show:</p>
+      <div
+      class="number-option cursor-pointer text-white mx-3 px-3 py-1"
+      v-for="numberOption in numberOptions"
+      :key="'show-'+numberOption"
+      :class="{'active bg-darkBlue' : numberOption == selectedNumber}"
+      @click="selectedNumber = numberOption"
+      >
+      {{numberOption}}
+      </div>
+    </div>
+
+
+    <!-- THE LIST -->
+    <div class="flex w-full justify-center">
+      <ul style="list-style:none" class='border the-list w-auto'>
+        <li
+        v-for="(countryData,i) in topCountries"
+        :key="'top-'+i"
+        class='flex w-full justify-between font-heading mb-2'
+        >
+          <span class="title text-white mr-5">{{i+1}}. {{countryData.Country}}</span>
+          <span class="value text-white">{{getFormatedNumber(countryData[selectedFilter])}}</span>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+</template>
+
+<script>
+import { defineProps, reactive, ref, computed } from 'vue'
+import {useStore} from 'vuex'
+
+export default{
+  setup(){
+    const store = useStore()// store instead of `$store`
+
+    //FILTERS
+    const filters = reactive([
+      'TotalConfirmed',
+      'TotalDeaths',
+    ])
+    const selectedFilter = ref('TotalConfirmed')
+    const numberOptions = [3, 5, 10]
+    const selectedNumber = ref(3)
+
+    const topCountries = computed(() => {
+      return store.getters['countries/topList'](selectedFilter.value, selectedNumber.value)
+    })
+
+    const getFormatedNumber = val => {
+      return new Intl.NumberFormat('en-US').format(val)
+    }
+
+    return {
+      topCountries,
+      selectedFilter,
+      numberOptions,
+      selectedNumber,
+      getFormatedNumber
+    }
+  }
+}
+</script>

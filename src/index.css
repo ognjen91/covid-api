@@ -10,6 +10,14 @@ p, a {
   font-family: "Quattrocento Sans", sans-serif;
 }
 
+.font-heading {
+  font-family: "Quattrocento", serif !important;
+}
+
+.font-paragraph {
+  font-family: "Quattrocento Sans", sans-serif !important;
+}
+
 #root {
   min-height: 100vh;
 }
@@ -30,13 +38,75 @@ main {
   color: #FCD200;
 }
 
+.case-window .content-holder {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+}
+
 .case-window .value {
-  font-size: 3rem;
+  font-size: 2rem;
   color: #007CC7;
+}
+@media screen and (min-width: 1200px) {
+  .case-window .value {
+    font-size: 3rem;
+  }
 }
 
 .case-window.danger .value {
   color: #e84545;
+}
+
+.top-list.bottom {
+  background-color: rgba(18, 35, 46, 0.6);
+}
+
+.top-list.bottom .option, .number-option {
+  border-radius: 8px;
+}
+
+.top-list.bottom ul.the-list {
+  min-height: 40vh;
+  height: auto;
+  transition: height 1s ease-out;
+}
+
+.top-list.bottom ul.the-list li {
+  font-size: 1.5rem;
+}
+
+.home-title {
+  font-size: 3.5rem;
+}
+
+.home-subtitle {
+  font-size: 2.9rem;
+}
+
+.bg-holder {
+  background-position: center;
+  background-size: cover;
+  position: absolute;
+  min-height: 100%;
+  z-index: -1;
+  opacity: 0.8;
+}
+
+.bg-holder .bg-layer {
+  background-color: rgba(0, 0, 0, 0.29);
+}
+
+.countries {
+  background-color: rgba(18, 35, 46, 0.8);
+}
+
+.countries th svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.countries th svg.desc {
+  transform: rotate(180deg);
 }
 
 /*# sourceMappingURL=index.css.map */

@@ -1,19 +1,33 @@
 <template>
+<div class='relative'>
 
-<h1 class='w-full my-4 text-center'>Covid 19 Data for {{date}}</h1>
+  <!-- BACKGROUND IMAGE -->
+  <div class="bg-holder w-full h-full" style="background-image: url('/bg-main.jpg')">
+    <div class="bg-layer w-full h-full"></div>
+  </div>
 
-<div class='border flex flex-wrap w-full h-full flex justify-center items-center lg:flex-row py-5'>
-  <case-window
-  class='w-1/2 lg:w-1/4 border my-5'
-  v-for="(value, caseType) in cases"
-  :class="{danger : dangerTypes.includes(caseType)}"
-  :key="caseType"
-  :value="value">
-  {{caseType}}
-  </case-window>
+  <!-- TITLE -->
+  <h1 class='home-title w-full text-center text-white'><strong>Covid 19 Data for {{date}} </strong></h1>
 
+  <!-- CASES -->
+  <div class='border flex flex-wrap w-full h-full flex justify-center items-center lg:flex-row py-5 px-3'>
+    <case-window
+    class='w-1/2 lg:w-1/4 border my-5'
+    v-for="(value, caseType) in cases"
+    :class="{danger : dangerTypes.includes(caseType)}"
+    :key="caseType"
+    :value="value">
+    {{caseType}}
+    </case-window>
+  </div>
+
+    <!-- UPDATE TIME -->
+    <p class='w-full text-center text-white'>Last Updated {{updateTime}}</p>
+
+    <!-- TOP LISTS -->
+    <TopList />
 </div>
-  <p class='w-full text-center text-lighterBlue'>Last Updated {{updateTime}}</p>
+
 </template>
 
 <script>
@@ -21,34 +35,34 @@ import { defineProps, reactive, ref, computed, onMounted } from 'vue'
 import {useStore} from 'vuex'
 import moment from 'moment'
 import CaseWindow from '../components/CaseWindow.vue'
+import TopList from '../components/TopList.vue'
 
 export default {
   components : {
-    CaseWindow
+    CaseWindow,
+    TopList
   },
 
   setup(){
     // use store in setup() method
     const store = useStore()// store instead of `$store`
 
-    onMounted(() => {
-    })
 
     const globalData =  computed(() => {
       return store.getters['globalData/allGlobalData']
     })
 
-    const dangerTypes = reactive(['totalConfirmed', 'newConfirmed', 'totalDeaths', 'newDeaths'])
+    const dangerTypes = reactive(['TotalConfirmed', 'NewConfirmed', 'TotalDeaths', 'NewDeaths'])
 
     const cases = computed(() => {
       let data = {}
       let types = [
-        'totalConfirmed',
-        'newConfirmed',
-        'totalDeaths',
-        'newDeaths',
-        'totalRecovered',
-        'newRecovered',
+        'TotalConfirmed',
+        'NewConfirmed',
+        'TotalDeaths',
+        'NewDeaths',
+        'TotalRecovered',
+        'NewRecovered',
       ]
 
       for(let i =0; i<types.length; i++){
@@ -69,11 +83,18 @@ export default {
       return moment().format('MMMM DD YYYY')
     })
 
+
+
+    const background  = computed(() => {
+      return require('../assets/bg-image.jpg')
+    })
+
     return {
       dangerTypes,
       globalData,
       updateTime,
       date,
+      background,
       cases
     }
   }

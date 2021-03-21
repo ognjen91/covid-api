@@ -9,7 +9,11 @@ export default {
   },
 
   getters : {
-    countries : state => state.countries
+    allCountries : state => state.countries,
+    topList : (state) => (filter, number) => {
+      let sorted = [...state.countries].sort((a,b) => (a[filter] < b[filter]) ? 1 : ((b[filter] < a[filter]) ? -1 : 0))
+      return number == 'all'? sorted : sorted.slice(0, number)
+    }
   },
 
   mutations : {
