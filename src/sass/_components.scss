@@ -1,0 +1,8 @@
+.case-window .value{
+  font-size: 3rem;
+  color: $lighterBlue;
+}
+
+.case-window.danger .value{
+  color: $red;
+}

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Quattrocento&family=Quattrocento+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quattrocento&family=Quattrocento+Sans:wght@400;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -28,6 +28,15 @@ main {
 
 .header nav a.router-link-active {
   color: #FCD200;
+}
+
+.case-window .value {
+  font-size: 3rem;
+  color: #007CC7;
+}
+
+.case-window.danger .value {
+  color: #e84545;
 }
 
 /*# sourceMappingURL=index.css.map */
