@@ -1,6 +1,6 @@
 <template>
-  <div class="top-list bottom pt-5">
-    <h2 class='home-subtitle w-full text-center text-white my-4'>{{selectedFilter}} BY COUNTRY</h2>
+  <div class="top-list bottom pt-5 ">
+    <h2 class='home-subtitle w-full text-center text-white my-4'>{{$t('components.topList.title')}}</h2>
 
     <!-- SELECT FILTERING -->
     <div class="options f-full flex justify-center">
@@ -9,20 +9,20 @@
          @click="selectedFilter = 'TotalConfirmed'"
          :class="{'active bg-yellow border-yellow' : selectedFilter == 'TotalConfirmed'}"
          >
-         TotalConfirmed
+         {{$t('components.topList.optionTotalConfirmed')}}
        </div>
         <div
          class="option text-white cursor-pointer border mx-2 px-2 py-1"
          @click="selectedFilter = 'TotalDeaths'"
          :class="{'active bg-red border-red' : selectedFilter == 'TotalDeaths'}"
          >
-         TotalDeaths
+         {{$t('components.topList.optionTotalDeaths')}}
        </div>
     </div>
 
     <!-- SELECT NUMBER TO SHOW -->
     <div class="number f-full flex justify-center items-center py-3">
-      <p class='text-white'>Show:</p>
+      <p class='text-white'>{{$t('components.topList.show')}}:</p>
       <div
       class="number-option cursor-pointer mx-3 px-3 py-1 bg-darkBlue"
       v-for="numberOption in numberOptions"
@@ -36,7 +36,7 @@
 
 
     <!-- THE LIST -->
-    <div class="flex w-full justify-center">
+    <div class="flex w-full justify-center px-5">
       <ul style="list-style:none" class='border the-list w-auto' :class="{'flex flex-wrap' : topCountries.length>5}">
         <li
         v-for="(countryData,i) in topCountries"
@@ -44,7 +44,14 @@
         class='flex justify-between font-heading mb-2'
         :class="{'w-full' : topCountries.length <= 5, 'w-1/2 px-3' : topCountries.length > 5, 'x' : i%2==1}"
         >
-          <span class="title text-white mr-5">{{i+1}}. {{countryData.Country}}</span>
+
+          <span class="title text-white mr-1 absolute">{{i+1}}.</span>
+          <router-link
+          class='ml-5'
+          :to="{ name: 'country', params: { slug: countryData.Slug }}"
+          >
+          <img :src="'https://www.countryflags.io/' + countryData.CountryCode.toLowerCase() + '/flat/32.png'" class="mr-3">
+          </router-link>
           <span class="value">{{getFormatedNumber(countryData[selectedFilter])}}</span>
         </li>
       </ul>

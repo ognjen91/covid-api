@@ -12,6 +12,7 @@
     "es6-promise": "^4.2.8",
     "moment": "^2.29.1",
     "vue": "^3.0.5",
+    "vue-i18n": "^9.0.0",
     "vue-router": "^4.0.5",
     "vue3-apexcharts": "^1.2.1",
     "vuex": "^4.0.0"

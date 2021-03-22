@@ -8,7 +8,7 @@
       <div class="bg-layer w-full h-full"></div>
     </div>
     <!-- TITLE -->
-    <h1 class='home-title w-full text-center text-white'><strong>Covid 19 Data for {{date}} </strong></h1>
+    <h1 class='home-title w-full text-center text-white'><strong>{{$t('pages.home.mainTitle')}} {{date}} </strong></h1>
 
     <!-- CASES -->
     <div class='border flex flex-wrap w-full h-full flex justify-center items-center lg:flex-row py-5 px-3'>
@@ -18,14 +18,14 @@
       :class="{danger : dangerTypes.includes(caseType)}"
       :key="caseType"
       :value="value">
-      {{caseType}}
+      <!-- {{caseType}} -->
+      {{$t("pages.home.caseWindows."+caseType)}}
       </case-window>
     </div>
 
     <!-- UPDATE TIME -->
-    <p class='w-full text-center text-white'>Last Updated {{updateTime}}</p>
+    <p class='w-full text-center text-white'>{{$t('pages.home.lastUpdateText')}} {{updateTime}}</p>
   </section>
-
 
 
     <!-- TOP LISTS -->
@@ -34,14 +34,18 @@
     </section>
 
     <!-- DEATH CHART -->
-    <section class="bg-white flex flex-col">
-      <h3 class="w-full text-red text-center">Deaths</h3>
+    <section class="bg-white flex flex-col lg:flex-row">
+      <h3 class="text-red text-center">{{$t('pages.home.totalDeathsTitle')}}</h3>
 
       <CountryDeathChart
       :confirmed="cases.TotalConfirmed"
       :deaths="cases.TotalDeaths"
       />
     </section>
+
+    <div class="section">
+      <RecentlyViewedCountries />
+    </div>
 </div>
 
 </template>
@@ -53,13 +57,15 @@ import moment from 'moment'
 import CaseWindow from '../components/CaseWindow.vue'
 import TopList from '../components/TopList.vue'
 import CountryDeathChart from '../components/CountryDeathChart.vue'
+import RecentlyViewedCountries from '../components/RecentlyViewedCountries.vue'
 
 
 export default {
   components : {
     CaseWindow,
     TopList,
-    CountryDeathChart
+    CountryDeathChart,
+    RecentlyViewedCountries
   },
 
   setup(){

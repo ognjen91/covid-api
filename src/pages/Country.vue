@@ -39,6 +39,9 @@
      >
       Deaths
     </div>
+
+
+
   </div>
 
   <component
@@ -48,13 +51,8 @@
    :deaths="countryData.TotalDeaths"
    >
    </component>
-  <!-- <div>
-    <CountryTrends :dates="countryData.dates" />
-  </div> -->
 
-  <!-- <div>
-    <CountryDeathChart :confirmed="countryData.TotalConfirmed" :deaths="countryData.TotalDeaths" />
-  </div> -->
+   <RecentlyViewedCountries :show-current="false" />
 
 
 
@@ -69,13 +67,14 @@
   import CaseWindow from '../components/CaseWindow.vue'
   import CountryTrends from '../components/CountryTrends.vue'
   import CountryDeathChart from '../components/CountryDeathChart.vue'
-
+  import RecentlyViewedCountries from '../components/RecentlyViewedCountries.vue'
 
   export default{
     components : {
       CaseWindow,
       CountryTrends,
-      CountryDeathChart
+      CountryDeathChart,
+      RecentlyViewedCountries
     },
 
     setup(){
@@ -120,6 +119,7 @@
         return moment(countryData.dates[0].Date).format('MMMM DD YYYY')
       })
 
+
       return {
         countryData,
         dangerTypes,
@@ -128,6 +128,27 @@
         firstConfirmedCaseDate,
         activeChart
       }
+    },
+
+    beforeRouteEnter (to, from, next) {
+      let recentlyViewed = localStorage.getItem('recentlyViewed')? JSON.parse(localStorage.getItem('recentlyViewed')) : []
+      let index = recentlyViewed.indexOf(to.params.slug)
+      if(index !== -1) recentlyViewed.splice(index, 1);
+      recentlyViewed.unshift(to.params.slug)
+
+      localStorage.setItem('recentlyViewed', JSON.stringify(recentlyViewed))
+
+      next()
+    },
+    beforeRouteUpdate (to, from, next) {
+      let recentlyViewed = localStorage.getItem('recentlyViewed')? JSON.parse(localStorage.getItem('recentlyViewed')) : []
+      let index = recentlyViewed.indexOf(to.params.slug)
+      if(index !== -1) recentlyViewed.splice(index, 1);
+      recentlyViewed.unshift(to.params.slug)
+
+      localStorage.setItem('recentlyViewed', JSON.stringify(recentlyViewed))
+
+      next()
     },
   }
 </script>
