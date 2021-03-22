@@ -26,6 +26,23 @@ main {
   min-height: 90vh;
 }
 
+.bg-holder {
+  background-position: center;
+  background-size: cover;
+  position: absolute;
+  min-height: 100%;
+  z-index: -1;
+  opacity: 0.8;
+}
+
+.bg-holder .bg-layer {
+  background-color: rgba(0, 0, 0, 0.29);
+}
+
+.country-single .bg-holder .bg-layer {
+  background-color: rgba(18, 35, 46, 0.8);
+}
+
 .header nav {
   background-color: #12232E;
 }
@@ -75,6 +92,25 @@ main {
   font-size: 1.5rem;
 }
 
+.top-list .value {
+  color: #e84545;
+  animation: color-me-in 3s infinite;
+  /* other keywords like "infinite alternate" can be useful here */
+}
+
+@keyframes color-me-in {
+  /* You could think of as "step 1" */
+  0% {
+    color: #e84545;
+  }
+  50% {
+    color: #FCD200;
+  }
+  /* You could think of as "step 2" */
+  100% {
+    color: #e84545;
+  }
+}
 .home-title {
   font-size: 3.5rem;
 }
@@ -83,26 +119,10 @@ main {
   font-size: 2.9rem;
 }
 
-.bg-holder {
-  background-position: center;
-  background-size: cover;
-  position: absolute;
-  min-height: 100%;
-  z-index: -1;
-  opacity: 0.8;
-}
-
-.bg-holder .bg-layer {
-  background-color: rgba(0, 0, 0, 0.29);
-}
-
-.countries {
-  background-color: rgba(18, 35, 46, 0.8);
-}
-
 .countries th svg {
-  width: 1rem;
-  height: 1rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  fill: #12232E;
 }
 
 .countries th svg.desc {

@@ -1,31 +1,47 @@
 <template>
-<div class='relative'>
+<div class='relative h-full'>
 
-  <!-- BACKGROUND IMAGE -->
-  <div class="bg-holder w-full h-full" style="background-image: url('/bg-main.jpg')">
-    <div class="bg-layer w-full h-full"></div>
-  </div>
 
-  <!-- TITLE -->
-  <h1 class='home-title w-full text-center text-white'><strong>Covid 19 Data for {{date}} </strong></h1>
+  <section class='relative h-full'>
+    <!-- BACKGROUND IMAGE -->
+    <div class="bg-holder w-full h-full" style="background-image: url('/bg-main.jpg')">
+      <div class="bg-layer w-full h-full"></div>
+    </div>
+    <!-- TITLE -->
+    <h1 class='home-title w-full text-center text-white'><strong>Covid 19 Data for {{date}} </strong></h1>
 
-  <!-- CASES -->
-  <div class='border flex flex-wrap w-full h-full flex justify-center items-center lg:flex-row py-5 px-3'>
-    <case-window
-    class='w-1/2 lg:w-1/4 border my-5'
-    v-for="(value, caseType) in cases"
-    :class="{danger : dangerTypes.includes(caseType)}"
-    :key="caseType"
-    :value="value">
-    {{caseType}}
-    </case-window>
-  </div>
+    <!-- CASES -->
+    <div class='border flex flex-wrap w-full h-full flex justify-center items-center lg:flex-row py-5 px-3'>
+      <case-window
+      class='w-1/2 lg:w-1/4 border my-5'
+      v-for="(value, caseType) in cases"
+      :class="{danger : dangerTypes.includes(caseType)}"
+      :key="caseType"
+      :value="value">
+      {{caseType}}
+      </case-window>
+    </div>
 
     <!-- UPDATE TIME -->
     <p class='w-full text-center text-white'>Last Updated {{updateTime}}</p>
+  </section>
+
+
 
     <!-- TOP LISTS -->
-    <TopList />
+    <section class='bg-darkBlue'>
+      <TopList />
+    </section>
+
+    <!-- DEATH CHART -->
+    <section class="bg-white flex flex-col">
+      <h3 class="w-full text-red text-center">Deaths</h3>
+
+      <CountryDeathChart
+      :confirmed="cases.TotalConfirmed"
+      :deaths="cases.TotalDeaths"
+      />
+    </section>
 </div>
 
 </template>
@@ -36,11 +52,14 @@ import {useStore} from 'vuex'
 import moment from 'moment'
 import CaseWindow from '../components/CaseWindow.vue'
 import TopList from '../components/TopList.vue'
+import CountryDeathChart from '../components/CountryDeathChart.vue'
+
 
 export default {
   components : {
     CaseWindow,
-    TopList
+    TopList,
+    CountryDeathChart
   },
 
   setup(){

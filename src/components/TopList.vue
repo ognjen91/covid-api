@@ -24,10 +24,10 @@
     <div class="number f-full flex justify-center items-center py-3">
       <p class='text-white'>Show:</p>
       <div
-      class="number-option cursor-pointer text-white mx-3 px-3 py-1"
+      class="number-option cursor-pointer mx-3 px-3 py-1 bg-darkBlue"
       v-for="numberOption in numberOptions"
       :key="'show-'+numberOption"
-      :class="{'active bg-darkBlue' : numberOption == selectedNumber}"
+      :class="{'active text-yellow border-yellow border-2 ' : numberOption == selectedNumber, 'text-white' : numberOption !== selectedNumber}"
       @click="selectedNumber = numberOption"
       >
       {{numberOption}}
@@ -37,14 +37,15 @@
 
     <!-- THE LIST -->
     <div class="flex w-full justify-center">
-      <ul style="list-style:none" class='border the-list w-auto'>
+      <ul style="list-style:none" class='border the-list w-auto' :class="{'flex flex-wrap' : topCountries.length>5}">
         <li
         v-for="(countryData,i) in topCountries"
         :key="'top-'+i"
-        class='flex w-full justify-between font-heading mb-2'
+        class='flex justify-between font-heading mb-2'
+        :class="{'w-full' : topCountries.length <= 5, 'w-1/2 px-3' : topCountries.length > 5, 'x' : i%2==1}"
         >
           <span class="title text-white mr-5">{{i+1}}. {{countryData.Country}}</span>
-          <span class="value text-white">{{getFormatedNumber(countryData[selectedFilter])}}</span>
+          <span class="value">{{getFormatedNumber(countryData[selectedFilter])}}</span>
         </li>
       </ul>
     </div>

@@ -104,6 +104,9 @@
         // return countries
         let lowercaseQuery = query.value.toLowerCase()
         let countries = orderings[selectedFilter.value] == 'desc'? store.getters['countries/topList'](selectedFilter.value, 'all') : store.getters['countries/topList'](selectedFilter.value, 'all').reverse()
+        let usersFeed = localStorage.getItem('feed')? JSON.parse(localStorage.getItem('feed')) : []
+
+        countries = countries.filter(country => usersFeed.includes(country.Slug))
         return countries.filter(countryData => countryData.Country.toLowerCase(lowercaseQuery).startsWith() || countryData.Slug.toLowerCase().startsWith(lowercaseQuery))
 
         //as we get descending order from db
@@ -120,6 +123,10 @@
 
         localStorage.setItem('feed', JSON.stringify(feed))
       }
+
+      const myFeed = computed(()=>{
+
+      })
 
       const checkIsInFeed = slug => {
         let feed = localStorage.getItem('feed')? JSON.parse(localStorage.getItem('feed')) : []

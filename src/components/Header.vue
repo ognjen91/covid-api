@@ -14,6 +14,8 @@
 
                 <router-link to="/countries" class="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Countries</router-link>
 
+                <router-link to="/my-feed" class="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">My Feed</router-link>
+
                 <router-link to="/about" class="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About</router-link>
 
               </div>

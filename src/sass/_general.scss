@@ -34,3 +34,22 @@ $white : #fff;
 main{
   min-height: 90vh;
 }
+
+
+// ===BACKGROUND=====
+.bg-holder{
+  background-position: center;
+  background-size: cover;
+  position: absolute;
+  min-height: 100%;
+  z-index: -1;
+  opacity: .8;
+}
+
+.bg-holder .bg-layer{
+  background-color: rgba(#000, 0.29);
+}
+
+.country-single .bg-holder .bg-layer{
+  background-color: rgba($darkBlue, 0.8);
+}

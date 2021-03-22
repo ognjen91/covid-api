@@ -1,10 +1,13 @@
 .countries{
-  background-color: rgba($darkBlue, .8); 
+  // background-color: $lighterBlue;
+  // background-color: rgba($darkBlue, .8);
 }
 
+
 .countries th svg{
-  width: 1rem;
-  height: 1rem;
+  width: .85rem;
+  height: .85rem;
+  fill: $darkBlue;
 }
 
 .countries th svg.desc{
