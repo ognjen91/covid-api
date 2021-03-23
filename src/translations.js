@@ -19,6 +19,19 @@ export default {
         },
         lastUpdateText : "Last Updated",
         totalDeathsTitle : "Deaths Stats"
+      },
+      countries : {
+        table : {
+          titles : {
+            Country: "Country",
+            TotalConfirmed : "Total Confirmed",
+            NewConfirmed : "Confirmed Today",
+            TotalDeaths : "Deaths",
+            NewDeaths : "Deaths Today",
+            TotalRecovered : "Recovered",
+            InFeed : "In Feed"
+          }
+        }
       }
     },
     components : {

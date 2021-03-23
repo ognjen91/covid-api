@@ -30,7 +30,7 @@
 
     <!-- TOP LISTS -->
     <section class='bg-darkBlue'>
-      <TopList />
+      <!-- <TopList /> -->
     </section>
 
     <!-- DEATH CHART -->
@@ -58,7 +58,6 @@ import CaseWindow from '../components/CaseWindow.vue'
 import TopList from '../components/TopList.vue'
 import CountryDeathChart from '../components/CountryDeathChart.vue'
 import RecentlyViewedCountries from '../components/RecentlyViewedCountries.vue'
-
 
 export default {
   components : {
@@ -113,6 +112,8 @@ export default {
     const background  = computed(() => {
       return require('../assets/bg-image.jpg')
     })
+
+
 
     return {
       dangerTypes,

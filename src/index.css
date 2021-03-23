@@ -119,10 +119,51 @@ main {
   font-size: 2.9rem;
 }
 
+.countries-table th {
+  font-size: 0.75rem;
+}
+@media screen and (min-width: 1024px) {
+  .countries-table th {
+    font-size: 0.5rem;
+  }
+}
+
+.countries-table tbody td {
+  border-color: #e7e7e7;
+}
+
+.countries-table tbody tr {
+  transition: background-color 0.1s linear;
+}
+.countries-table tbody tr:hover {
+  background-color: #e7e7e7;
+}
+.countries-table tbody tr:hover td {
+  border-color: #fff;
+}
+
+.countries-table td.Country {
+  font-size: 0.75rem;
+}
+@media screen and (min-width: 1024px) {
+  .countries-table td.Country {
+    font-size: 0.8rem;
+  }
+}
+
+.countries-table td:not(.Country) {
+  font-size: 0.75rem;
+}
+@media screen and (min-width: 1024px) {
+  .countries-table td:not(.Country) {
+    font-size: 0.7rem;
+  }
+}
+
 .countries th svg {
   width: 0.85rem;
   height: 0.85rem;
-  fill: #12232E;
+  fill: #fff;
 }
 
 .countries th svg.desc {

@@ -3,6 +3,7 @@ import { store } from './store'
 
 import router from './router'
 import 'es6-promise/auto'
+import toastr from 'toastr'
 
 import { createI18n } from 'vue-i18n'
 import messages from './translations'
@@ -36,3 +37,22 @@ app.use(store)
 app.use(i18n)
 
 app.mount('#app')
+
+
+toastr.options = {
+  "closeButton": false,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": false,
+  "positionClass": "toast-bottom-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "2000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}

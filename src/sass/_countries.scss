@@ -3,11 +3,47 @@
   // background-color: rgba($darkBlue, .8);
 }
 
+.countries-table th{
+  font-size: .75rem;
+  @media screen and (min-width: $lg){
+    font-size: .5rem;
+  }
+}
+
+.countries-table tbody td{
+  border-color: $gray;
+}
+
+.countries-table tbody tr{
+  transition: background-color .1s linear;
+
+  &:hover{
+    background-color: $gray;
+
+    & td{
+      border-color: #fff;
+    }
+  }
+}
+
+.countries-table td.Country{
+
+  font-size: .75rem;
+  @media screen and (min-width: $lg){
+    font-size: .8rem;
+  }
+}
+.countries-table td:not(.Country){
+  font-size: .75rem;
+  @media screen and (min-width: $lg){
+    font-size: .7rem;
+  }
+}
 
 .countries th svg{
   width: .85rem;
   height: .85rem;
-  fill: $darkBlue;
+  fill: #fff;
 }
 
 .countries th svg.desc{

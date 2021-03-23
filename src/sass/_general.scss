@@ -1,6 +1,19 @@
 // FONTS
 @import url('https://fonts.googleapis.com/css2?family=Quattrocento&family=Quattrocento+Sans:wght@400;700&display=swap');
 
+// Breakpoints
+$sm: '640px';
+// => @media (min-width: 640px) { ... }
+$md: '768px';
+// => @media (min-width: 768px) { ... }
+$lg: '1024px';
+// => @media (min-width: 1024px) { ... }
+$xl: '1280px';
+// => @media (min-width: 1280px) { ... }
+$xxl: '1536px';
+
+
+
 h1,h2,h3,h4,h5,h6{
   font-family: 'Quattrocento', serif;
 }
@@ -25,7 +38,7 @@ $lightBlueShadow : #EEFBFB;
 $yellow : #FCD200;
 $red : #e84545;
 $white : #fff;
-
+$gray : #e7e7e7;
 
 #root{
   min-height: 100vh;

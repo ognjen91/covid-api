@@ -1,115 +1,76 @@
 <template>
   <div class='px-5 countries relative h-full'>
-    <table class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5" v-if="countries.length">
-			<thead class="text-white">
-				<tr class="bg-darkBlue flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
-					<th class="p-3 text-left">Name</th>
-					<th class="p-3 text-left">Name</th>
-					<th class="p-3 text-left">Email</th>
-					<th class="p-3 text-left" width="110px">Actions</th>
-				</tr>
-				<tr class="bg-teal-400 flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
-					<th class="p-3 text-left">Name</th>
-					<th class="p-3 text-left">Name</th>
-					<th class="p-3 text-left">Email</th>
-					<th class="p-3 text-left" width="110px">Actions</th>
-				</tr>
-                <tr class="bg-teal-400 flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
-                  <th class="p-3 text-left">Name</th>
-                  <th class="p-3 text-left">Name</th>
-                  <th class="p-3 text-left">Email</th>
-                  <th class="p-3 text-left" width="110px">Actions</th>
-              </tr>
-                <tr class="bg-teal-400 flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
-                  <th class="p-3 text-left">Name</th>
-                  <th class="p-3 text-left">Name</th>
-                  <th class="p-3 text-left">Email</th>
-                  <th class="p-3 text-left" width="110px">Actions</th>
-              </tr>
-			</thead>
-			<tbody class="flex-1 sm:flex-none">
-				<tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0">
-					<td class="border-grey-light border hover:bg-gray-100 p-3">John Covv</td>
-					<td class="border-grey-light border hover:bg-gray-100 p-3">John Covv</td>
-					<td class="border-grey-light border hover:bg-gray-100 p-3 truncate">contato@johncovv.com</td>
-					<td class="border-grey-light border hover:bg-gray-100 p-3 text-red-400 hover:text-red-600 hover:font-medium cursor-pointer">Delete</td>
-				</tr>
-				<tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0">
-					<td class="border-grey-light border hover:bg-gray-100 p-3">Michael Jackson</td>
-					<td class="border-grey-light border hover:bg-gray-100 p-3">Michael Jackson</td>
-					<td class="border-grey-light border hover:bg-gray-100 p-3 truncate">m_jackson@mail.com</td>
-					<td class="border-grey-light border hover:bg-gray-100 p-3 text-red-400 hover:text-red-600 hover:font-medium cursor-pointer">Delete</td>
-				</tr>
-                <tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0">
-                    <td class="border-grey-light border hover:bg-gray-100 p-3">Julia</td>
-                    <td class="border-grey-light border hover:bg-gray-100 p-3">Julia</td>
-                    <td class="border-grey-light border hover:bg-gray-100 p-3 truncate">julia@mail.com</td>
-                    <td class="border-grey-light border hover:bg-gray-100 p-3 text-red-400 hover:text-red-600 hover:font-medium cursor-pointer">Delete</td>
-                </tr>
-                <tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0">
-                  <td class="border-grey-light border hover:bg-gray-100 p-3">Martin Madrazo</td>
-                  <td class="border-grey-light border hover:bg-gray-100 p-3">Martin Madrazo</td>
-                  <td class="border-grey-light border hover:bg-gray-100 p-3 truncate">martin.madrazo@mail.com</td>
-                  <td class="border-grey-light border hover:bg-gray-100 p-3 text-red-400 hover:text-red-600 hover:font-medium cursor-pointer">Delete</td>
-                </tr>
-			</tbody>
-		</table>
-
-
 
     <form action="" class='w-full py-4 flex justify-center font-paragraph'>
-      <label for="query" class='mr-4'>Filter By Country Name</label>
+      <label for="query" class='mr-4'>Filter By Country Name {{feed.value}}</label>
       <input type="text" v-model.trim="query" id='query' class='border'>
     </form>
 
-    <table class="table-auto w-full h-full" v-if="countries.length">
-      <thead>
-        <tr class='text-left font-heading'>
-          <th class='' v-for="filter in filters" :key="'filter-'+filter">
+    <table class="countries-table w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5" v-if="countries.length">
+			<thead class="text-white font-heading">
+				<tr class="bg-darkBlue flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
+					<th class="p-3 text-left"  v-for="filter in filters" :key="'filter-'+filter">
             <span class='cursor-pointer'>
-                <span @click="setOrReverseFilter(filter)" class='mr-2' :class="{'font-bold text-red' : filter == selectedFilter, 'text-darkBlue' : filter !== selectedFilter}">
-                  {{filter}}
+                <span @click="setOrReverseFilter(filter)" class='mr-2' :class="{'font-bold text-red' : filter == selectedFilter, 'text-white' : filter !== selectedFilter}">
+                  {{$t("pages.countries.table.titles."+filter)}}
                 </span>
                 <IconDropDownArrow
                 v-if="selectedFilter == filter"
                 @click="setOrReverseFilter(filter)"
-                class="h-6 w-6 inline"
+                class="h-6 w-6 hidden lg:inline"
                 :class="{desc : orderings[filter] !== 'desc'}"
                 />
             </span>
           </th>
-          <th>In Feed</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="country in countries" :key='country.ID' class='pt-1 pb-3 border-b-2 border-lightBlue font-paragraph'>
-          <td  v-for="filter in filters" :key="country.slug + 'filter-'+filter" class='text-darkBlue'>
+          <th class="p-3 text-left">In Feed</th>
+				</tr>
+				<tr class="bg-darkBlue flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0" v-for="i in countries.length-1" :key="'th-'+i">
+          <th class="p-3 text-left"  v-for="filter in filters" :key="'filter-'+filter">
+            <span class='cursor-pointer'>
+                <span @click="setOrReverseFilter(filter)" class='mr-2' :class="{'font-bold text-red' : filter == selectedFilter, 'text-white' : filter !== selectedFilter}">
+                  {{$t("pages.countries.table.titles."+filter)}}
+                </span>
+                <IconDropDownArrow
+                v-if="selectedFilter == filter"
+                @click="setOrReverseFilter(filter)"
+                class="h-6 w-6 hidden lg:inline"
+                :class="{desc : orderings[filter] !== 'desc'}"
+                />
+            </span>
+          </th>
+          <th class="p-3 text-left">In Feed</th>
+				</tr>
+			</thead>
+			<tbody class="flex-1 sm:flex-none">
+				<tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0" v-for="country in countries" :key='country.ID'>
+					<td class="border hover:bg-gray-100 p-3"  v-for="filter in filters" :key="country.slug + 'filter-'+filter" :class=[filter]>
             <router-link
               v-if="filter == 'Country'"
               :to="{ name: 'country', params: { slug: country.Slug }}"
              >
-             <strong class='text-darkBlue'>{{country[filter]}}</strong>
-            </router-link>
-             <span v-else>{{getFormatedNumber(country[filter])}}</span>
+             <strong class='text-darkBlue font-heading'>{{country[filter]}}</strong>
+           </router-link>
+            <span v-else class='font-paragraph'>{{getFormatedNumber(country[filter])}}</span>
           </td>
-          <td>
+					<td class="border hover:bg-gray-100 p-3">
             <div @click='toggleToFeed(country.Slug)'>
-              <span v-if="checkIsInFeed(country.Slug)">+</span>
+              <span v-if="feed.value.includes(country.Slug)">+</span>
               <span v-else>-</span>
             </div>
           </td>
-        </tr>
-      </tbody>
-    </table>
+				</tr>
+			</tbody>
+		</table>
 
     <h2 class="w-full text-center text-red" v-else >Sorry, No Matching Countries For The Query</h2>
 
   </div>
 </template>
 <script>
-  import { defineProps, reactive, ref, computed, onMounted } from 'vue'
+  import { defineProps, reactive, ref, computed, onMounted, watch } from 'vue'
   import {useStore} from 'vuex'
   import IconDropDownArrow from '../components/Icons/IconDropDownArrow.vue'
+  import toastr from 'toastr'
 
   export default{
     components : {
@@ -169,19 +130,29 @@
         return new Intl.NumberFormat('en-US').format(val)
       }
 
+      const feed = reactive([])
+
+      onMounted(()=>{
+        setFeed()
+      })
+
+      watch(
+        () => [...feed],
+        (newFeed, oldFeed) => {
+          localStorage.setItem('feed', JSON.stringify(newFeed))
+        })
+
+      const setFeed = () => {
+        feed.value =  localStorage.getItem('feed')? localStorage.getItem('feed') : []
+      }
+
       const toggleToFeed = slug => {
-        let feed = localStorage.getItem('feed')? JSON.parse(localStorage.getItem('feed')) : []
         let indexInFeed = feed.indexOf(slug)
         indexInFeed == -1? feed.push(slug) : feed.splice(indexInFeed, 1);
-
-        localStorage.setItem('feed', JSON.stringify(feed))
+        let toast = indexInFeed == -1? 'Added To Feed' : 'Removed From Feed';
+        toastr["success"](toast)
       }
 
-      const checkIsInFeed = slug => {
-        let feed = localStorage.getItem('feed')? JSON.parse(localStorage.getItem('feed')) : []
-        let indexInFeed = feed.indexOf(slug)
-        return indexInFeed !== -1
-      }
 
       return {
         query,
@@ -192,14 +163,14 @@
         setOrReverseFilter,
         getFormatedNumber,
         toggleToFeed,
-        checkIsInFeed
+        feed
       }
 
     }
   }
 </script>
 
-<style>
+/* <style>
   html,
   body {
     height: 100%;
@@ -220,6 +191,6 @@
   }
 
   th:not(:last-child) {
-    border-bottom: 2px solid rgba(0, 0, 0, .1);
+    /* border-bottom: 2px solid rgba(0, 0, 0, .1); */
   }
-</style>
+</style> */
