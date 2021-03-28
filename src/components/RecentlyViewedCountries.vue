@@ -1,6 +1,6 @@
 <template>
   <div class="my-6">
-    <h4 class="w-full text-center subheading-size text-darkBlue">{{!showRandom || !arrayOfSlugsOfRecentlyViewedCountries.length? $t('components.recentlyViewed.viewedTitle') :  $t('components.recentlyViewed.suggestionsTitle')}}</h4>
+    <h4 class="w-full text-center subheading-size text-darkBlue">{{showRandom || !arrayOfSlugsOfRecentlyViewedCountries.length || arrayOfSlugsOfRecentlyViewedCountries.length == 1? $t('components.recentlyViewed.suggestionsTitle') : $t('components.recentlyViewed.viewedTitle') }}</h4>
     <div class="flex justify-center">
       <RecentlyViewedCountry
       :current-country-slug="$route.params.slug"
@@ -45,7 +45,7 @@
       // COUNTRIES
       const countries = computed(()=>{
         let countries = [];
-          let slugsArray = !props.showRandom || !arrayOfSlugsOfRecentlyViewedCountries.value.length? arrayOfSlugsOfRecentlyViewedCountries.value : store.getters['countries/randomSlugs'](3)
+          let slugsArray = props.showRandom || !arrayOfSlugsOfRecentlyViewedCountries.value.length || arrayOfSlugsOfRecentlyViewedCountries.value.length ==1 ?  store.getters['countries/randomSlugs'](3) : arrayOfSlugsOfRecentlyViewedCountries.value
           for(let i=0; i<=slugsArray.length; i++){
             if(i == 3) break
             let theCountry = store.getters['countries/singleCountryData'](slugsArray[i])
