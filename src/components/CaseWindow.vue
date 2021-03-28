@@ -10,7 +10,7 @@
           <span v-else>0</span>
         </p>
         <div class="text w-full text-center">
-          <p class='text-darkBlue'><slot></slot></p>
+          <p class='text-darkBlue'><strong><slot></slot></strong></p>
         </div>
 
     </div>

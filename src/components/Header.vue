@@ -35,7 +35,7 @@
                       @click="showLocalesDropdown = !showLocalesDropdown"
                       >
                         <span class="sr-only">Open user menu</span>
-                        <img class="h-8 w-8 rounded-full" :src="'https://www.countryflags.io/' + $i18n.locale.split('-')[1] + '/flat/64.png'" alt="">
+                        <img class="h-8 w-8 rounded-full" :src="'https://www.countryflags.io/' + countryCodes[$i18n.locale] + '/flat/64.png'" alt="">
                       </button>
                     </div>
 
@@ -85,7 +85,7 @@
           <div class="flex items-center px-5">
               <!-- ACTIVE LOCALE -->
               <div class="flex-shrink-0">
-                <img class="h-10 w-10 rounded-full" :src="'https://www.countryflags.io/' + $i18n.locale.split('-')[1] + '/flat/64.png'" alt="">
+                <img class="h-10 w-10 rounded-full" :src="'https://www.countryflags.io/' + countryCodes[$i18n.locale] + '/flat/64.png'" alt="">
               </div>
               <button class="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                 <span class="sr-only">View notifications</span>
@@ -127,14 +127,18 @@
       return{
         allLocales : ['sr-RS','en-GB'],
         showMenuDropdown : false,
-        showLocalesDropdown : false
+        showLocalesDropdown : false,
+        countryCodes : {
+          sr : 'rs',
+          en : 'GB',
+        }
       }
     },
 
     computed : {
         currentLocaleShorhand(){
           return this.$i18n.locale.split('-')[0]
-        }
+        },
     },
 
 
@@ -142,7 +146,7 @@
       setLocale(locale){
         this.$i18n.locale = locale
         this.$router.push(locale.split('-')[0])
-      }
+      },
     },
 
 

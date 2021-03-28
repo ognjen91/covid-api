@@ -5,9 +5,9 @@
 
   <!-- TITLE -->
   <section class='section-small-x-padding bg-darkBlue'>
-    <h1 class='home-title w-full text-center text-white'><strong>Covid 19 Data for {{countryData.Country}} <br> on {{date}} </strong></h1>
+    <h1 class='home-title w-full text-center text-white'><strong>{{$t('pages.country.title')}} {{countryData.Country}} <br> {{$t('pages.country.on')}} {{date}} </strong></h1>
     <h3 class="text-center text-white" v-if="firstConfirmedCaseDate">
-      First Confrimed Case
+      {{$t('pages.country.firstConfirmed')}}:
       {{firstConfirmedCaseDate}}
     </h3>
 
@@ -19,14 +19,14 @@
     :class="{danger : dangerTypes.includes(caseType)}"
     :key="caseType"
     :value="value">
-    {{caseType}}
+    {{$t("pages.home.caseWindows."+caseType)}}
     </case-window>
   </div>
   </section>
 
   <!-- CHARTS -->
   <section class="charts section-medium-y-padding section-small-x-padding">
-    <h2 class="mb-4 w-full text-center subheading-size">Country Trends & Deaths</h2>
+    <h2 class="mb-4 w-full text-center subheading-size">{{$t('pages.country.trendsTitle')}}</h2>
 
 
     <div class="options mb-5 w-full  flex justify-center">
@@ -35,14 +35,14 @@
        class="option rounded-lg  cursor-pointer  mx-2 px-2 lg:px-4 py-1 lg:py-2 border border-darkBlue"
        :class="{'active text-white bg-darkBlue default-shadow' : activeChart == 'CountryTrends', 'text-darkBlue' : activeChart !== 'CountryTrends'}"
        >
-        Trends
+        {{$t("pages.country.trends")}}
       </div>
       <div
        @click="activeChart = 'CountryDeathChart'"
        class="option rounded-lg cursor-pointer  mx-2 px-2 lg:px-4 py-1 lg:py-2 border border-red"
        :class="{'active text-white bg-red default-shadow' : activeChart == 'CountryDeathChart', 'text-red' : activeChart !== 'CountryDeathChart'}"
        >
-        Deaths
+        {{$t("pages.country.deaths")}}
       </div>
 
 
@@ -58,6 +58,7 @@
     </section>
 
 
+    <!-- HEAT MAPS -->
     <section class="section-small-y-padding section-small-x-padding">
       <HeatMaps :country-slug="$route.params.slug" :get-data-from-server="false" />
     </section>
@@ -156,6 +157,7 @@
       next()
     },
     beforeRouteUpdate (to, from, next) {
+      this.activeChart = 'CountryTrends'
       let recentlyViewed = localStorage.getItem('recentlyViewed')? JSON.parse(localStorage.getItem('recentlyViewed')) : []
       let index = recentlyViewed.indexOf(to.params.slug)
       if(index !== -1) recentlyViewed.splice(index, 1);

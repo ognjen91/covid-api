@@ -1,15 +1,15 @@
 <template>
   <div class="heat-maps">
-      <div class="options flex mt-4 mb-6 justify-center font-heading">
+      <div class="options uppercase flex mt-4 mb-6 justify-center font-heading">
         <div
-        class="border border-darkBlue rounded-lg mx-3  py-1 lg:py-2 px-3  lg:px-4 text-center cursor-pointer font-paragraph"
+        class="border border-darkBlue rounded-lg  mx-3  py-1 lg:py-2 px-3  lg:px-4 text-center cursor-pointer font-paragraph"
         :class='{
           "text-darkBlue" : activeFilter !== "Confirmed",
           "text-white bg-darkBlue default-shadow" : activeFilter == "Confirmed"
           }'
           @click="activeFilter = 'Confirmed'"
           >
-          NEW CASES BY DATE
+          {{$t('components.heatMaps.confirmedTitle')}}
          </div>
         <div
         class="border border-red rounded-lg mx-3 py-1 lg:py-2 px-3  lg:px-4  text-center cursor-pointer font-paragraph"
@@ -18,7 +18,7 @@
           "text-white bg-red default-shadow" : activeFilter == "Deaths"}'
           @click="activeFilter = 'Deaths'"
           >
-          DEATHS BY DATE
+          {{$t('components.heatMaps.deathsTitle')}}
          </div>
       </div>
       <apexchart type="heatmap" height="350" :options="chartOptions" :series="casesByMonth" v-if="show"></apexchart>
@@ -118,9 +118,10 @@
         },
         colors: [activeFilter.value == 'Confirmed'? "#007CC7" : '#e84545'],
         title: {
-          text: activeFilter.value == 'Confirmed'? 'Confirmed Cases' : 'Deaths'
+          text: ''
         },
       }})
+
 
          if(props.getDataFromServer){
            store.dispatch('countries/setCountryFullData', props.countrySlug)

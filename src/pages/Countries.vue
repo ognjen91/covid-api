@@ -1,13 +1,25 @@
 <template>
   <div class='px-5 countries relative h-full'>
 
+    <!-- INTRO TEXT -->
+    <div class="flex py-5 flex-col text-center">
+      <template v-if="$route.name == 'countries'">
+        <h1 class='subheading-size text-red'>{{$t('pages.countries.topText.countries.title')}}</h1>
+        <p class="paragraph-size">{{$t('pages.countries.topText.countries.text1')}} <br>{{$t('pages.countries.topText.countries.text2')}}</p>
+      </template>
+      <template v-else>
+        <h1 class='subheading-size text-red'>{{$t('pages.countries.topText.feed.title')}}</h1>
+        <p class="paragraph-size">{{$t('pages.countries.topText.feed.text1')}} <br>{{$t('pages.countries.topText.feed.text2')}}</p>
+      </template>
+    </div>
 
-
-    <form action="" class='w-full py-4 hidden lg:flex justify-center font-heading'>
-      <label for="query" class='mr-4'>Filter By Country Name</label>
-      <input type="text" v-model.trim="query" id='query' class='border'>
+    <!-- filtering form -->
+    <form action="" class='w-full py-4 mb-5 hidden lg:flex justify-center font-heading'>
+      <label for="query" class='mr-4'>{{$t('pages.countries.filterText')}}</label>
+      <input type="text" v-model.trim="query" id='query' class='border px-2'>
     </form>
 
+    <!-- TABLE -->
     <table class="countries-table table-auto w-full h-full" v-if="countries.length">
       <thead class='bg-darkBlue text-heading table-head hidden lg:table-header-group'>
         <tr class='text-left font-heading'>
@@ -58,7 +70,8 @@
       </tbody>
     </table>
 
-    <h2 class="w-full text-center text-red my-5 py-5" v-else>Sorry, No Matching Countries</h2>
+    <!-- NO MATCH TEXT -->
+    <h2 class="w-full text-center text-red my-5 py-5" v-else>{{$t('pages.countries.noMatch')}}</h2>
 
     <!-- RECENTLY VIEWED -->
     <div class="section">

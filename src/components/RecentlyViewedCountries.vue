@@ -1,6 +1,6 @@
 <template>
   <div class="my-6">
-    <h4 class="w-full text-center subheading-size text-darkBlue">{{!showRandom || !arrayOfSlugsOfRecentlyViewedCountries.length? $t('components.recentlyViewed.title') : 'Countries Suggestions'}}</h4>
+    <h4 class="w-full text-center subheading-size text-darkBlue">{{!showRandom || !arrayOfSlugsOfRecentlyViewedCountries.length? $t('components.recentlyViewed.viewedTitle') :  $t('components.recentlyViewed.suggestionsTitle')}}</h4>
     <div class="flex justify-center">
       <RecentlyViewedCountry
       :current-country-slug="$route.params.slug"

@@ -33,12 +33,13 @@ p, a{
   font-size: 1rem;
 
   @media screen and (min-width: 1024px){
-    font-size: 2rem;
+    font-size: 1.7rem;
   }
 }
 
 .heading-size{
   font-size: 3rem;
+  line-height: 1;
 
   @media screen and (min-width: 1024px){
     font-size: 4rem;
