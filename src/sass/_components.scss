@@ -33,7 +33,6 @@
 }
 
 .top-list.bottom ul.the-list{
-  // min-height: 40vh;
   height: auto;
   transition: height 1s ease-out;
 }
@@ -51,14 +50,12 @@
 }
 
 @keyframes change-color {
-  /* You could think of as "step 1" */
   0% {
     color: $red;
   }
   50% {
     color: $yellow;
   }
-  /* You could think of as "step 2" */
   100% {
     color: $red;
   }

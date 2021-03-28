@@ -175,14 +175,12 @@ main {
 }
 
 @keyframes change-color {
-  /* You could think of as "step 1" */
   0% {
     color: #e84545;
   }
   50% {
     color: #FCD200;
   }
-  /* You could think of as "step 2" */
   100% {
     color: #e84545;
   }
