@@ -1,10 +1,10 @@
 <template>
-  <div class="">
-    <h4 class="w-full text-center">{{$t('components.recentlyViewed.title')}}</h4>
+  <div class="my-6">
+    <h4 class="w-full text-center subheading-size text-darkBlue">{{!showRandom || !arrayOfSlugsOfRecentlyViewedCountries.length? $t('components.recentlyViewed.title') : 'Countries Suggestions'}}</h4>
     <div class="flex justify-center">
       <RecentlyViewedCountry
       :current-country-slug="$route.params.slug"
-      v-for="(country,i) in recentlyViewedCountries"
+      v-for="(country,i) in countries"
       :key="'rview-'+i"
       :country="country"
       class='mx-3'
@@ -20,25 +20,35 @@
 
   export default {
 
+    props : {
+      showRandom : {
+        Type : Boolean,
+        requried : false,
+        default : false
+      }
+    },
+
     components : {
       RecentlyViewedCountry
     },
 
 
 
-    setup(){
+    setup(props, context){
       const store = useStore()// store instead of `$store`
       const arrayOfSlugsOfRecentlyViewedCountries = computed(()=>{
         let recentlyViewedArraySlugs = localStorage.getItem('recentlyViewed')? JSON.parse(localStorage.getItem('recentlyViewed')) : []
         return recentlyViewedArraySlugs
       })
 
-      const recentlyViewedCountries = computed(()=>{
+      const countries = computed(()=>{
         let countries = [];
-        for(let i=0; i<=arrayOfSlugsOfRecentlyViewedCountries.value.length; i++){
-          let theCountry = store.getters['countries/singleCountryData'](arrayOfSlugsOfRecentlyViewedCountries.value[i])
-          countries.push(theCountry)
-        }
+          let slugsArray = !props.showRandom || !arrayOfSlugsOfRecentlyViewedCountries.value.length? arrayOfSlugsOfRecentlyViewedCountries.value : store.getters['countries/randomSlugs'](3)
+          for(let i=0; i<=slugsArray.length; i++){
+            if(i == 3) break
+            let theCountry = store.getters['countries/singleCountryData'](slugsArray[i])
+            countries.push(theCountry)
+          }
 
         return countries
       })
@@ -46,7 +56,7 @@
 
       return {
         arrayOfSlugsOfRecentlyViewedCountries,
-        recentlyViewedCountries
+        countries
       }
     }
   }

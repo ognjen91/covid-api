@@ -8,26 +8,33 @@ import toastr from 'toastr'
 import { createI18n } from 'vue-i18n'
 import messages from './translations'
 
-      const i18n = createI18n({
-        legacy: false,
-        globalInjection: true,
-        locale: 'en-GB',
-        messages,
-        datetimeFormats: {
-          'en-GB': {
-            long: {
-              year: 'numeric',
-              month: '2-digit',
-              day: '2-digit',
-              hour: '2-digit',
-              minute: '2-digit',
-              second: '2-digit'
-            }
-          },
-        }
-      })
+const i18n = createI18n({
+  legacy: false,
+  globalInjection: true,
+  locale: 'en',
+  messages,
+  datetimeFormats: {
+    // 'en-GB': {
+    //   long: {
+    //     year: 'numeric',
+    //     month: '2-digit',
+    //     day: '2-digit',
+    //     hour: '2-digit',
+    //     minute: '2-digit',
+    //     second: '2-digit'
+    //   }
+    // },
+  }
+})
 
 import App from './App.vue'
+router.beforeEach((to, from) => {
+  // prevent from viewing fake countries
+  if(to.params.slug == 'kosovo') router.push({name : 'not-found'})
+
+  window.scrollTo(0, 0)
+})
+
 
 const app = createApp(App)
 

@@ -1,91 +1,100 @@
 <template>
   <div class='px-5 countries relative h-full'>
 
-    <form action="" class='w-full py-4 flex justify-center font-paragraph'>
-      <label for="query" class='mr-4'>Filter By Country Name {{feed.value}}</label>
+
+
+    <form action="" class='w-full py-4 hidden lg:flex justify-center font-heading'>
+      <label for="query" class='mr-4'>Filter By Country Name</label>
       <input type="text" v-model.trim="query" id='query' class='border'>
     </form>
 
-    <table class="countries-table w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5" v-if="countries.length">
-			<thead class="text-white font-heading">
-				<tr class="bg-darkBlue flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
-					<th class="p-3 text-left"  v-for="filter in filters" :key="'filter-'+filter">
-            <span class='cursor-pointer'>
+    <table class="countries-table table-auto w-full h-full" v-if="countries.length">
+      <thead class='bg-darkBlue text-heading table-head hidden lg:table-header-group'>
+        <tr class='text-left font-heading'>
+          <th class='pl-1 py-3' v-for="filter in filters" :key="'filter-'+filter" :class="{'big-only' : ['NewDeaths'].includes(filter)}">
+            <span class='cursor-pointer flex items-center'>
                 <span @click="setOrReverseFilter(filter)" class='mr-2' :class="{'font-bold text-red' : filter == selectedFilter, 'text-white' : filter !== selectedFilter}">
-                  {{$t("pages.countries.table.titles."+filter)}}
+                  {{$t('pages.countries.table.titles.'+filter)}}
                 </span>
                 <IconDropDownArrow
                 v-if="selectedFilter == filter"
                 @click="setOrReverseFilter(filter)"
-                class="h-6 w-6 hidden lg:inline"
+                class="h-6 w-6 inline"
                 :class="{desc : orderings[filter] !== 'desc'}"
                 />
             </span>
           </th>
-          <th class="p-3 text-left">In Feed</th>
-				</tr>
-				<tr class="bg-darkBlue flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0" v-for="i in countries.length-1" :key="'th-'+i">
-          <th class="p-3 text-left"  v-for="filter in filters" :key="'filter-'+filter">
-            <span class='cursor-pointer'>
-                <span @click="setOrReverseFilter(filter)" class='mr-2' :class="{'font-bold text-red' : filter == selectedFilter, 'text-white' : filter !== selectedFilter}">
-                  {{$t("pages.countries.table.titles."+filter)}}
-                </span>
-                <IconDropDownArrow
-                v-if="selectedFilter == filter"
-                @click="setOrReverseFilter(filter)"
-                class="h-6 w-6 hidden lg:inline"
-                :class="{desc : orderings[filter] !== 'desc'}"
-                />
-            </span>
-          </th>
-          <th class="p-3 text-left">In Feed</th>
-				</tr>
-			</thead>
-			<tbody class="flex-1 sm:flex-none">
-				<tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0" v-for="country in countries" :key='country.ID'>
-					<td class="border hover:bg-gray-100 p-3"  v-for="filter in filters" :key="country.slug + 'filter-'+filter" :class=[filter]>
-            <router-link
-              v-if="filter == 'Country'"
-              :to="{ name: 'country', params: { slug: country.Slug }}"
-             >
-             <strong class='text-darkBlue font-heading'>{{country[filter]}}</strong>
-           </router-link>
-            <span v-else class='font-paragraph'>{{getFormatedNumber(country[filter])}}</span>
+          <th class='text-white'>In Feed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="country in countries" :key='country.ID' class='pt-1 pb-3 lg:py-4 border-b-2  mb-2 lg:mb-0 border-lightBlue font-paragraph  w-full flex flex-col lg:table-row'>
+          <td @click="$router.push({ name: 'country', params: {locale: $i18n.locale.split('-')[0], slug: country.Slug }})" class='cursor-pointer pl-1 text-darkBlue lg:py-2' v-for="filter in filters" :key="country.Slug + 'filter-'+filter" :class="[country.Slug]">
+             <strong   v-if="filter == 'Country'" class='text-darkBlue text-heading underline lg:no-underline country-title'>
+               {{country[filter]}}
+             </strong>
+             <span v-else class='text-paragraph flex w-full'>
+               <span class="lg:hidden w-1/2 text-darkBlue font-bold">{{$t('pages.countries.table.titles.'+filter)}}</span>
+               <span class="data text-red lg:text-darkBlue ml-3 lg:ml-0">{{getFormatedNumber(country[filter])}}</span>
+             </span>
           </td>
-					<td class="border hover:bg-gray-100 p-3">
-            <div @click='toggleToFeed(country.Slug)'>
-              <span v-if="feed.value.includes(country.Slug)">+</span>
-              <span v-else>-</span>
+          <td class='flex items-center lg:py-2'>
+            <span class='lg:hidden w-1/2 mr-3' @click='toggleToFeed(country.Slug)'>{{!checkIsInFeed(country.Slug)? $t('Add to Feed') : $t('Remove from Feed')}}</span>
+            <div
+            @click='toggleToFeed(country.Slug)'
+            class='cursor-pointer rounded-full border feed-btn flex justify-center items-center relative text-white'
+            :class="{
+              'bg-darkBlue' : !checkIsInFeed(country.Slug),
+              'bg-red' : checkIsInFeed(country.Slug),
+              'added-to-feed' : checkIsInFeed(country.Slug) && recentlyToggledToFeed == country.Slug,
+              'removed-from-feed' : !checkIsInFeed(country.Slug) && recentlyToggledToFeed == country.Slug
+              }"
+              >
+              <span v-if="checkIsInFeed(country.Slug)">-</span>
+              <span v-else>+</span>
             </div>
           </td>
-				</tr>
-			</tbody>
-		</table>
+        </tr>
+      </tbody>
+    </table>
 
-    <h2 class="w-full text-center text-red" v-else >Sorry, No Matching Countries For The Query</h2>
+    <h2 class="w-full text-center text-red my-5 py-5" v-else>Sorry, No Matching Countries</h2>
 
+    <!-- RECENTLY VIEWED -->
+    <div class="section">
+      <RecentlyViewedCountries :show-random='true' />
+    </div>
   </div>
 </template>
 <script>
-  import { defineProps, reactive, ref, computed, onMounted, watch } from 'vue'
+  import { defineProps, reactive, ref, computed, onUpdated, watch } from 'vue'
   import {useStore} from 'vuex'
+  import { useRoute } from 'vue-router'
+  import RecentlyViewedCountries from '../components/RecentlyViewedCountries.vue'
+  import reusableData from '../functions/reusableData'
+
+
+
   import IconDropDownArrow from '../components/Icons/IconDropDownArrow.vue'
   import toastr from 'toastr'
 
   export default{
     components : {
-      IconDropDownArrow
+      IconDropDownArrow,
+      RecentlyViewedCountries
     },
 
 
     setup(){
       const store = useStore()// store instead of `$store`
+      const route = useRoute()// store instead of `$route`
+      const {currentLocale} = reusableData()
+
+
       const filters = reactive([
         'Country',
         'TotalConfirmed',
-        'NewConfirmed',
         'TotalDeaths',
-        'NewDeaths',
         'TotalRecovered',
       ])
 
@@ -113,6 +122,8 @@
         selectedFilter.value = filter
       }
 
+      const feed = reactive([])
+
       const countries = computed(() => {
         if(!query){
           if(selectedFilter.value == 'Country') return orderings['Country'] == 'asc'? store.getters['countries/allCountries'] : store.getters['countries/allCountries'].reverse()
@@ -121,6 +132,8 @@
         // return countries
         let lowercaseQuery = query.value.toLowerCase()
         let countries = orderings[selectedFilter.value] == 'desc'? store.getters['countries/topList'](selectedFilter.value, 'all') : store.getters['countries/topList'](selectedFilter.value, 'all').reverse()
+
+        if(route.name == 'users-feed') countries = countries.filter(country => feed.value.includes(country.Slug))
         return countries.filter(countryData => countryData.Country.toLowerCase(lowercaseQuery).startsWith() || countryData.Slug.toLowerCase().startsWith(lowercaseQuery))
 
         //as we get descending order from db
@@ -130,27 +143,32 @@
         return new Intl.NumberFormat('en-US').format(val)
       }
 
-      const feed = reactive([])
 
-      onMounted(()=>{
-        setFeed()
-      })
-
-      watch(
-        () => [...feed],
-        (newFeed, oldFeed) => {
-          localStorage.setItem('feed', JSON.stringify(newFeed))
-        })
+      const recentlyToggledToFeed = ref('')
 
       const setFeed = () => {
-        feed.value =  localStorage.getItem('feed')? localStorage.getItem('feed') : []
+        feed.value = localStorage.getItem('feed')? JSON.parse(localStorage.getItem('feed')) : []
       }
+      // in Vue2, this would be in created hook
+      if(window.innerWidth < 1024) selectedFilter.value = 'Country'
+      setFeed()
+
 
       const toggleToFeed = slug => {
-        let indexInFeed = feed.indexOf(slug)
-        indexInFeed == -1? feed.push(slug) : feed.splice(indexInFeed, 1);
+        let indexInFeed = feed.value.indexOf(slug)
+        indexInFeed == -1? feed.value.push(slug) : feed.value.splice(indexInFeed, 1);
         let toast = indexInFeed == -1? 'Added To Feed' : 'Removed From Feed';
         toastr["success"](toast)
+        localStorage.setItem('feed', JSON.stringify(feed.value))
+
+        recentlyToggledToFeed.value = slug
+        setTimeout(()=>{recentlyToggledToFeed.value = ''}, 1100)
+
+      }
+
+      const checkIsInFeed = slug => {
+        if(!feed) return false
+        return feed.value.includes(slug)
       }
 
 
@@ -163,34 +181,12 @@
         setOrReverseFilter,
         getFormatedNumber,
         toggleToFeed,
-        feed
+        checkIsInFeed,
+        feed,
+        recentlyToggledToFeed,
+        currentLocale
       }
 
     }
   }
 </script>
-
-/* <style>
-  html,
-  body {
-    height: 100%;
-  }
-
-  @media (min-width: 640px) {
-    table {
-      display: inline-table !important;
-    }
-
-    thead tr:not(:first-child) {
-      display: none;
-    }
-  }
-
-  td:not(:last-child) {
-    border-bottom: 0;
-  }
-
-  th:not(:last-child) {
-    /* border-bottom: 2px solid rgba(0, 0, 0, .1); */
-  }
-</style> */

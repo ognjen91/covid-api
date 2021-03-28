@@ -3,14 +3,18 @@
   <!-- BACKGROUND IMAGE -->
   <div class="country-single h-full relative bg-white" v-if="countryData">
 
-
   <!-- TITLE -->
-  <h1 class='home-title w-full text-center text-darkBlue'><strong>Covid 19 Data for {{countryData.Country}} <br> on {{date}} </strong></h1>
+  <section class='section-small-x-padding bg-darkBlue'>
+    <h1 class='home-title w-full text-center text-white'><strong>Covid 19 Data for {{countryData.Country}} <br> on {{date}} </strong></h1>
+    <h3 class="text-center text-white" v-if="firstConfirmedCaseDate">
+      First Confrimed Case
+      {{firstConfirmedCaseDate}}
+    </h3>
 
   <!-- CASES -->
-  <div class='border flex flex-wrap w-full h-full flex justify-center items-center lg:flex-row py-5 px-3'>
+  <div class=' flex flex-wrap w-full h-full flex justify-center items-center lg:flex-row py-5 px-3'>
     <case-window
-    class='w-1/2 lg:w-1/4 border my-5'
+    class='w-1/2 lg:w-1/4 p-2 my-5'
     v-for="(value, caseType) in cases"
     :class="{danger : dangerTypes.includes(caseType)}"
     :key="caseType"
@@ -18,39 +22,45 @@
     {{caseType}}
     </case-window>
   </div>
+  </section>
 
-  <h3 class="text-center" v-if="firstConfirmedCaseDate">
-    First Confrimed Case
-    {{firstConfirmedCaseDate}}
-  </h3>
+  <!-- CHARTS -->
+  <section class="charts section-medium-y-padding section-small-x-padding">
+    <h2 class="mb-4 w-full text-center subheading-size">Country Trends & Deaths</h2>
 
-  <div class="options f-full flex justify-center">
-    <div
-     @click="activeChart = 'CountryTrends'"
-     class="option  cursor-pointer border mx-2 px-2 py-1 border-darkBlue"
-     :class="{'active text-white bg-darkBlue' : activeChart == 'CountryTrends', 'text-darkBlue' : activeChart !== 'CountryTrends'}"
-     >
-      Trends
+
+    <div class="options mb-5 w-full  flex justify-center">
+      <div
+       @click="activeChart = 'CountryTrends'"
+       class="option rounded-lg  cursor-pointer  mx-2 px-2 lg:px-4 py-1 lg:py-2 border border-darkBlue"
+       :class="{'active text-white bg-darkBlue default-shadow' : activeChart == 'CountryTrends', 'text-darkBlue' : activeChart !== 'CountryTrends'}"
+       >
+        Trends
+      </div>
+      <div
+       @click="activeChart = 'CountryDeathChart'"
+       class="option rounded-lg cursor-pointer  mx-2 px-2 lg:px-4 py-1 lg:py-2 border border-red"
+       :class="{'active text-white bg-red default-shadow' : activeChart == 'CountryDeathChart', 'text-red' : activeChart !== 'CountryDeathChart'}"
+       >
+        Deaths
+      </div>
+
+
+
     </div>
-    <div
-     @click="activeChart = 'CountryDeathChart'"
-     class="option cursor-pointer border mx-2 px-2 py-1 border-darkBlue"
-     :class="{'active text-white bg-darkBlue' : activeChart == 'CountryDeathChart', 'text-darkBlue' : activeChart !== 'CountryDeathChart'}"
-     >
-      Deaths
-    </div>
+    <component
+    :is="activeChart"
+    :dates="countryData.dates"
+    :confirmed="countryData.TotalConfirmed"
+    :deaths="countryData.TotalDeaths"
+    >
+    </component>
+    </section>
 
 
-
-  </div>
-
-  <component
-   :is="activeChart"
-   :dates="countryData.dates"
-   :confirmed="countryData.TotalConfirmed"
-   :deaths="countryData.TotalDeaths"
-   >
-   </component>
+    <section class="section-small-y-padding section-small-x-padding">
+      <HeatMaps :country-slug="$route.params.slug" :get-data-from-server="false" />
+    </section>
 
    <RecentlyViewedCountries :show-current="false" />
 
@@ -60,12 +70,13 @@
 </template>
 
 <script>
-  import { defineProps, reactive, ref, computed, onMounted } from 'vue'
+  import { defineProps, reactive, ref, computed, onUpdated } from 'vue'
   import { useStore } from 'vuex'
   import { useRoute } from 'vue-router'
   import moment from 'moment'
   import CaseWindow from '../components/CaseWindow.vue'
   import CountryTrends from '../components/CountryTrends.vue'
+  import HeatMaps from '../components/HeatMaps.vue'
   import CountryDeathChart from '../components/CountryDeathChart.vue'
   import RecentlyViewedCountries from '../components/RecentlyViewedCountries.vue'
 
@@ -74,16 +85,17 @@
       CaseWindow,
       CountryTrends,
       CountryDeathChart,
-      RecentlyViewedCountries
+      RecentlyViewedCountries,
+      HeatMaps
     },
 
     setup(){
       const store = useStore()// store instead of `$store`
       const route = useRoute()// store instead of `$store`
 
-      onMounted(()=>{
-        store.dispatch('countries/setCountryFullData', route.params.slug)
-      })
+      // onUpdated(()=>{
+      // })
+      store.dispatch('countries/setCountryFullData', route.params.slug)
 
 
       const countryData = computed(()=> store.getters['countries/singleCountryData'](route.params.slug))
@@ -114,9 +126,12 @@
         if(!countryData) return null
         return moment(countryData.Date).format('MMMM DD YYYY')
       })
+
+      // DATE OF THE FIRST CONFIRMED CASE
       const firstConfirmedCaseDate = computed(() => {
-        if(!countryData.dates) return null
-        return moment(countryData.dates[0].Date).format('MMMM DD YYYY')
+        if(!countryData.value.dates) return null
+        if(!countryData.value.dates.length) return null
+        return moment(countryData.value.dates[0].Date).format('MMMM DD YYYY')
       })
 
 
@@ -146,8 +161,9 @@
       if(index !== -1) recentlyViewed.splice(index, 1);
       recentlyViewed.unshift(to.params.slug)
 
-      localStorage.setItem('recentlyViewed', JSON.stringify(recentlyViewed))
+      this.$store.dispatch('countries/setCountryFullData', to.params.slug)
 
+      localStorage.setItem('recentlyViewed', JSON.stringify(recentlyViewed))
       next()
     },
   }

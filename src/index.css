@@ -18,6 +18,53 @@ p, a {
   font-family: "Quattrocento Sans", sans-serif !important;
 }
 
+.paragraph-size {
+  font-size: 1rem;
+}
+@media screen and (min-width: 1024px) {
+  .paragraph-size {
+    font-size: 2rem;
+  }
+}
+
+.heading-size {
+  font-size: 3rem;
+}
+@media screen and (min-width: 1024px) {
+  .heading-size {
+    font-size: 4rem;
+  }
+}
+
+.subheading-size {
+  font-size: 2rem;
+}
+@media screen and (min-width: 1024px) {
+  .subheading-size {
+    font-size: 3rem;
+  }
+}
+
+.section-small-y-padding {
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+}
+
+.section-medium-y-padding {
+  padding-top: 3rem;
+  padding-bottom: 5rem;
+}
+
+.section-small-x-padding {
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.section-medium-x-padding {
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
 #root {
   min-height: 100vh;
 }
@@ -43,6 +90,14 @@ main {
   background-color: rgba(18, 35, 46, 0.8);
 }
 
+.default-shadow {
+  box-shadow: 0 8px 6px -6px black;
+}
+
+.yellow-shadow {
+  box-shadow: 0 8px 6px -6px #FCD200;
+}
+
 .header nav {
   background-color: #12232E;
 }
@@ -55,13 +110,25 @@ main {
   color: #FCD200;
 }
 
+.hamburger {
+  fill: #fff;
+  width: 100%;
+  height: 100%;
+  max-width: 50px;
+  max-height: 50px;
+}
+
+.lang-dropdown {
+  z-index: 100;
+}
+
 .case-window .content-holder {
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
 }
 
 .case-window .value {
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: #007CC7;
 }
 @media screen and (min-width: 1200px) {
@@ -74,6 +141,10 @@ main {
   color: #e84545;
 }
 
+.heat-maps .options {
+  font-size: 0.8rem;
+}
+
 .top-list.bottom {
   background-color: rgba(18, 35, 46, 0.6);
 }
@@ -83,22 +154,26 @@ main {
 }
 
 .top-list.bottom ul.the-list {
-  min-height: 40vh;
   height: auto;
   transition: height 1s ease-out;
 }
 
 .top-list.bottom ul.the-list li {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
+}
+@media screen and (min-width: 1200px) {
+  .top-list.bottom ul.the-list li {
+    font-size: 1.5rem;
+  }
 }
 
 .top-list .value {
   color: #e84545;
-  animation: color-me-in 3s infinite;
+  animation: change-color 3s infinite;
   /* other keywords like "infinite alternate" can be useful here */
 }
 
-@keyframes color-me-in {
+@keyframes change-color {
   /* You could think of as "step 1" */
   0% {
     color: #e84545;
@@ -119,12 +194,31 @@ main {
   font-size: 2.9rem;
 }
 
+@media screen and (min-width: 1200px) {
+  section.deaths {
+    padding-left: 10vw;
+  }
+}
+
+.countries-table {
+  max-width: 100%;
+  overflow-y: scroll;
+}
+
+.countries-table th:first-child {
+  border-top-left-radius: 8px;
+}
+
+.countries-table th:last-child {
+  border-top-right-radius: 8px;
+}
+
 .countries-table th {
-  font-size: 0.75rem;
+  font-size: 14px;
 }
 @media screen and (min-width: 1024px) {
   .countries-table th {
-    font-size: 0.5rem;
+    font-size: 1.1rem;
   }
 }
 
@@ -142,21 +236,15 @@ main {
   border-color: #fff;
 }
 
-.countries-table td.Country {
-  font-size: 0.75rem;
+.countries-table td {
+  font-size: 12px;
 }
 @media screen and (min-width: 1024px) {
   .countries-table td.Country {
-    font-size: 0.8rem;
+    font-size: 1.4rem;
   }
-}
-
-.countries-table td:not(.Country) {
-  font-size: 0.75rem;
-}
-@media screen and (min-width: 1024px) {
   .countries-table td:not(.Country) {
-    font-size: 0.7rem;
+    font-size: 1.2rem;
   }
 }
 
@@ -168,6 +256,144 @@ main {
 
 .countries th svg.desc {
   transform: rotate(180deg);
+}
+
+@media screen and (max-width: 1023px) {
+  .countries .country-title {
+    font-size: 2rem;
+  }
+}
+
+.big-only {
+  display: none;
+}
+@media screen and (min-width: 1024px) {
+  .big-only {
+    display: table-cell;
+  }
+}
+
+.feed-btn {
+  width: 30px;
+  height: 30px;
+}
+@media screen and (min-width: 1024px) {
+  .feed-btn {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+.feed-btn.added-to-feed::after,
+.feed-btn.removed-from-feed::after {
+  font-weight: 800;
+  content: "+1";
+  color: #12232E;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  -webkit-animation: feedEffect 1s forwards;
+  /* Safari 4+ */
+  -moz-animation: feedEffect 1s forwards;
+  /* Fx 5+ */
+  -o-animation: feedEffect 1s forwards;
+  /* Opera 12+ */
+  animation: feedEffect 1s forwards;
+  /* IE 10+, Fx 29+ */
+}
+
+.feed-btn.removed-from-feed::after {
+  content: "-1";
+  color: #e84545;
+}
+
+.count-value {
+  -webkit-animation: fadeIn 1s forwards;
+  /* Safari 4+ */
+  -moz-animation: fadeIn 1s forwards;
+  /* Fx 5+ */
+  -o-animation: fadeIn 1s forwards;
+  /* Opera 12+ */
+  animation: fadeIn 1s forwards;
+  /* IE 10+, Fx 29+ */
+}
+
+@-webkit-keyframes feedEffect {
+  0% {
+    top: 50%;
+    opacity: 1;
+  }
+  100% {
+    top: -15px;
+    opacity: 0;
+  }
+}
+@-moz-keyframes feedEffect {
+  0% {
+    top: 50%;
+    opacity: 1;
+  }
+  100% {
+    top: -15px;
+    opacity: 0;
+  }
+}
+@-o-keyframes feedEffect {
+  0% {
+    top: 50%;
+    opacity: 1;
+  }
+  100% {
+    top: -15px;
+    opacity: 0;
+  }
+}
+@keyframes feedEffect {
+  0% {
+    top: 50%;
+    opacity: 1;
+  }
+  100% {
+    top: -15px;
+    opacity: 0;
+  }
+}
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-moz-keyframes feedEffect {
+  0% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-o-keyframes feedEffect {
+  0% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes feedEffect {
+  0% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .country-single .charts {
+    padding: 5rem 20%;
+  }
 }
 
 /*# sourceMappingURL=index.css.map */

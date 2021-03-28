@@ -1,7 +1,7 @@
 <template>
-  <div id='root' class='border'>
+  <div id='root' class=''>
     <Header />
-    <main class='border'>
+    <main class=''>
       <router-view />
     </main>
     <Footer />
@@ -21,16 +21,9 @@ export default {
 
 
 
-  methods : {
-
-  },
-
   created(){
-
     this.$store.dispatch('globalData/setInitialData')
-    // this.setCountries()
-    // console.log(this.$store.getters['general/counter'])
-  }
+  },
 
 }
 </script>

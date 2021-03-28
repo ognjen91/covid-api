@@ -5,7 +5,7 @@
 }
 
 .case-window .value{
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: $lighterBlue;
 
   @media screen and (min-width: 1200px){
@@ -15,6 +15,12 @@
 
 .case-window.danger .value{
   color: $red;
+}
+
+
+// =====HEAT MAPS=======
+.heat-maps .options{
+  font-size: .8rem;
 }
 
 // =====TOP LIST=====
@@ -27,21 +33,24 @@
 }
 
 .top-list.bottom ul.the-list{
-  min-height: 40vh;
+  // min-height: 40vh;
   height: auto;
   transition: height 1s ease-out;
 }
 
 .top-list.bottom ul.the-list li{
-  font-size: 1.5rem;
+  font-size: 1.3rem;
+  @media screen and (min-width: 1200px){
+    font-size: 1.5rem;
+  }
 }
 
 .top-list .value {
   color: $red;
-  animation: color-me-in 3s infinite; /* other keywords like "infinite alternate" can be useful here */
+  animation: change-color 3s infinite; /* other keywords like "infinite alternate" can be useful here */
 }
 
-@keyframes color-me-in {
+@keyframes change-color {
   /* You could think of as "step 1" */
   0% {
     color: $red;

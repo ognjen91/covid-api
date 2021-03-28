@@ -5,3 +5,11 @@
 .home-subtitle{
   font-size: 2.9rem;
 }
+
+
+section.deaths{
+  // padding: 3rem 0 5rem;
+  @media screen and (min-width: 1200px){
+    padding-left: 10vw;
+  }
+}

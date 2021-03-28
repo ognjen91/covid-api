@@ -38,7 +38,6 @@ export default {
     setInitialData (context) {
       axios.get('https://api.covid19api.com/summary')
         .then(function ({data}) {
-          console.log('from vuex action global/setInitialData', data.Global);
           context.commit('SET_TOTAL_DATA', {
             TotalConfirmed : data.Global.TotalConfirmed,
             NewConfirmed : data.Global.NewConfirmed,
@@ -49,7 +48,8 @@ export default {
             updateTime : data.Date
           })
 
-          context.commit('countries/SET_COUNTRIES_DATA', data.Countries, { root: true })
+          //set countries, but remove fake ones
+          context.commit('countries/SET_COUNTRIES_DATA', data.Countries.filter(country => country.Slug !== 'kosovo'), { root: true })
         })
         .catch(function (error) {
           console.log(error);

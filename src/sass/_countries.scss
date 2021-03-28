@@ -1,17 +1,26 @@
-.countries{
-  // background-color: $lighterBlue;
-  // background-color: rgba($darkBlue, .8);
+.countries-table{
+  max-width: 100%;
+  overflow-y: scroll;
 }
-
+.countries-table th:first-child{
+  border-top-left-radius: 8px;
+}
+.countries-table th:last-child{
+  border-top-right-radius: 8px;
+}
 .countries-table th{
-  font-size: .75rem;
-  @media screen and (min-width: $lg){
-    font-size: .5rem;
+  font-size: 14px;
+  @media screen and (min-width: 1024px){
+    font-size: 1.1rem;
   }
 }
 
 .countries-table tbody td{
   border-color: $gray;
+}
+
+.countries-table tbody td.data{
+
 }
 
 .countries-table tbody tr{
@@ -26,19 +35,18 @@
   }
 }
 
-.countries-table td.Country{
+.countries-table td{
+  font-size: 12px;
+  @media screen and (min-width: 1024px){
+    &.Country{
+      font-size: 1.4rem;
+    }
+    &:not(.Country){
+      font-size: 1.2rem;
+    }
+  }
+}
 
-  font-size: .75rem;
-  @media screen and (min-width: $lg){
-    font-size: .8rem;
-  }
-}
-.countries-table td:not(.Country){
-  font-size: .75rem;
-  @media screen and (min-width: $lg){
-    font-size: .7rem;
-  }
-}
 
 .countries th svg{
   width: .85rem;
@@ -48,4 +56,87 @@
 
 .countries th svg.desc{
   transform: rotate(180deg);
+}
+
+.countries .country-title{
+  @media screen and (max-width: 1023px){
+    font-size: 2rem;
+  }
+}
+
+.big-only{
+  display: none;
+  @media screen and (min-width: 1024px){
+    display: table-cell;
+  }
+}
+
+
+.feed-btn{
+  width: 30px;
+  height: 30px;
+
+  @media screen and (min-width: 1024px){
+    width: 25px;
+    height: 25px;
+  }
+}
+.feed-btn.added-to-feed::after,
+.feed-btn.removed-from-feed::after{
+  font-weight: 800;
+  content: "+1";
+  color: $darkBlue;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  -webkit-animation: feedEffect 1s forwards; /* Safari 4+ */
+  -moz-animation:    feedEffect 1s forwards; /* Fx 5+ */
+  -o-animation:      feedEffect 1s forwards; /* Opera 12+ */
+  animation:         feedEffect 1s forwards; /* IE 10+, Fx 29+ */
+}
+.feed-btn.removed-from-feed::after{
+  content: "-1";
+  color: $red;
+}
+
+.count-value{
+  -webkit-animation: fadeIn 1s forwards; /* Safari 4+ */
+  -moz-animation:    fadeIn 1s forwards; /* Fx 5+ */
+  -o-animation:      fadeIn 1s forwards; /* Opera 12+ */
+  animation:         fadeIn 1s forwards; /* IE 10+, Fx 29+ */
+}
+
+
+@-webkit-keyframes feedEffect {
+  0%   { top: 50%; opacity: 1;}
+  100% { top: -15px; opacity: 0;}
+}
+@-moz-keyframes feedEffect {
+  0%   { top: 50%; opacity: 1;}
+  100% { top: -15px; opacity: 0;}
+}
+@-o-keyframes feedEffect {
+  0%   { top: 50%; opacity: 1;}
+  100% { top: -15px; opacity: 0;}
+}
+@keyframes feedEffect {
+  0%   { top: 50%; opacity: 1;}
+  100% { top: -15px; opacity: 0;}
+}
+
+@-webkit-keyframes fadeIn {
+  0%   { opacity: .1;}
+  100% { opacity : 1;}
+}
+@-moz-keyframes feedEffect {
+  0%   { opacity: .1;}
+  100% { opacity : 1;}
+}
+@-o-keyframes feedEffect {
+  0%   { opacity: .1;}
+  100% { opacity : 1;}
+}
+@keyframes feedEffect {
+  0%   { opacity: .1;}
+  100% { opacity : 1;}
 }

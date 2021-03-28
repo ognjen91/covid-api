@@ -41,6 +41,12 @@
 
 <script>
 	export default{
-
+		props : {
+			fill : {
+				Type: String,
+				required : false,
+				default : '#000'
+			}
+		}
 	}
 </script>

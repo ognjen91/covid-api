@@ -1,12 +1,16 @@
 <template>
   <div class="case-window py-3 px-4">
-    <div class="content-holder flex flex-col w-full h-full py-5">
+    <div class="content-holder flex flex-col w-full h-full py-5 default-shadow">
 
-        <p class='w-full text-center value font-bold'>
-          {{formatedValue || 0}}
+        <p class='w-full text-center value font-bold font-heading'>
+          <!-- {{formatedValue || 0}} -->
+          <span v-if="value">
+            <CountTo :number="value" :time="1000" />
+          </span>
+          <span v-else>0</span>
         </p>
         <div class="text w-full text-center">
-          <p><slot></slot></p>
+          <p class='text-darkBlue'><slot></slot></p>
         </div>
 
     </div>
@@ -15,8 +19,13 @@
 
 <script>
 import { computed } from 'vue'
+import CountTo from './CountTo.vue'
 
 export default {
+  components : {
+    CountTo
+  },
+
   props : {
     value : {
       Type : Number,
