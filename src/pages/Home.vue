@@ -31,7 +31,7 @@
     <!-- DEATH CHART -->
     <section class="deaths section-medium-y-padding bg-white flex flex-col lg:flex-row">
       <div class="lg:w-1/2">
-        <h2 class="text-red text-center heading-size">{{$t('pages.home.deathStats.title')}}</h2>
+        <h2 class="text-red text-center heading-size mb-4">{{$t('pages.home.deathStats.title')}}</h2>
         <!-- text -->
         <p class="font-paragraph paragraph-size text-center">
           <span class="text-red">{{formatNumber(cases.TotalDeaths, $i18n.locale)}}</span>  {{$t('pages.home.deathStats.totalText')}}<br>
@@ -64,7 +64,7 @@
 
     <!-- SERBIA DATA -->
     <section class="my-country-feed section-medium-y-padding section-medium-x-padding mb-5">
-      <h2 class='heading-size text-red text-center lg:text-red mb-3'>{{$t('pages.home.serbia.title')}}</h2>
+      <h2 class='heading-size text-red text-center lg:text-red mb-5'>{{$t('pages.home.serbia.title')}}</h2>
       <p class="paragraph-size text-center mb-5">
       {{$t('pages.home.serbia.totalCasesText1')}} <span class="text-red">{{serbiaData.totalConfirmed}}</span> {{$t('pages.home.serbia.totalCasesText2')}},
       {{$t('pages.home.serbia.totalCasesText3')}} <span class="text-red">{{serbiaRankings.totalConfirmed}}.</span> {{$t('pages.home.serbia.totalCasesText4')}}. <br>
@@ -77,8 +77,8 @@
       </h3>
 
       <p class="text-center mb-3">
-        <span class="paragraph-size lg:hidden">Click on a heatmap squares to get data for the date </span>
-        <span class="hidden lg:inline w-full">Hover over heatmap squares to get data for the date </span>
+        <span class="paragraph-size lg:hidden">{{$t('pages.home.serbia.tutorialMobile')}}</span>
+        <span class="hidden lg:inline w-full">{{$t('pages.home.serbia.tutorialDesktop')}} </span>
       </p>
 
       <HeatMaps country-slug="serbia" />
@@ -148,13 +148,12 @@ export default {
     const updateTime = computed(() => {
       let time = store.getters['globalData/updateTime']
       if(!time) return null
-      return moment(time).format('MMMM DD YYYY, h:mm:ss a')
+      return moment(time).format('DD. MM. YYYY. h:mm:ss a')
     })
 
     const date = computed(() => {
-      return moment().format('MMMM DD YYYY')
+      return moment().format('DD. MM. YYYY.')
     })
-
 
 
     const background  = computed(() => {

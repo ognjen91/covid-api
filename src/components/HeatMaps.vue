@@ -1,6 +1,9 @@
 <template>
   <div class="heat-maps">
+
+      <!-- OPTIONS SELECT -->
       <div class="options uppercase flex mt-4 mb-6 justify-center font-heading">
+        <!-- OPTION : CONFIRMED CASES -->
         <div
         class="border border-darkBlue rounded-lg  mx-3  py-1 lg:py-2 px-3  lg:px-4 text-center cursor-pointer font-paragraph"
         :class='{
@@ -11,6 +14,7 @@
           >
           {{$t('components.heatMaps.confirmedTitle')}}
          </div>
+         <!-- OPTION : DEATHS -->
         <div
         class="border border-red rounded-lg mx-3 py-1 lg:py-2 px-3  lg:px-4  text-center cursor-pointer font-paragraph"
         :class='{
@@ -21,12 +25,14 @@
           {{$t('components.heatMaps.deathsTitle')}}
          </div>
       </div>
+
+      <!-- CHART -->
       <apexchart type="heatmap" height="350" :options="chartOptions" :series="casesByMonth" v-if="show"></apexchart>
   </div>
 </template>
 
 <script>
-  import { defineProps, reactive, ref, computed, onMounted, watch } from 'vue'
+  import { defineProps, ref, computed } from 'vue'
   import { useStore } from 'vuex'
   import VueApexCharts from "vue3-apexcharts";
   import moment from 'moment'

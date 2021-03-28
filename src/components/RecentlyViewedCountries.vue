@@ -14,9 +14,10 @@
 </template>
 
 <script>
-  import { defineProps, reactive, ref, computed, onMounted } from 'vue'
+  import { defineProps, ref, computed } from 'vue'
   import {useStore} from 'vuex'
   import RecentlyViewedCountry from './RecentlyViewedCountry.vue'
+
 
   export default {
 
@@ -41,6 +42,7 @@
         return recentlyViewedArraySlugs
       })
 
+      // COUNTRIES
       const countries = computed(()=>{
         let countries = [];
           let slugsArray = !props.showRandom || !arrayOfSlugsOfRecentlyViewedCountries.value.length? arrayOfSlugsOfRecentlyViewedCountries.value : store.getters['countries/randomSlugs'](3)

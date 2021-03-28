@@ -32,6 +32,8 @@ export default {
         totalCasesText7: 'and this ranks Serbia as',
         totalCasesText8: 'globally',
         statsSubtitle: 'Serbia Stats By Date',
+        tutorialMobile : 'Click on a heatmap squares to get data for the date',
+        tutorialDesktop : 'Hover over heatmap squares to get data for the date',
 
       },
       lastUpdateText : "Last Updated",

@@ -156,6 +156,8 @@
 
       next()
     },
+
+
     beforeRouteUpdate (to, from, next) {
       this.activeChart = 'CountryTrends'
       let recentlyViewed = localStorage.getItem('recentlyViewed')? JSON.parse(localStorage.getItem('recentlyViewed')) : []
@@ -163,8 +165,9 @@
       if(index !== -1) recentlyViewed.splice(index, 1);
       recentlyViewed.unshift(to.params.slug)
 
-      this.$store.dispatch('countries/setCountryFullData', to.params.slug)
 
+
+      this.$store.dispatch('countries/setCountryFullData', to.params.slug)
       localStorage.setItem('recentlyViewed', JSON.stringify(recentlyViewed))
       next()
     },

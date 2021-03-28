@@ -27,6 +27,8 @@
     },
 
     computed : {
+
+      // CHART OPTIONS
       chartOptions(){
         if(!this.dates) return {}
 
@@ -64,6 +66,7 @@
               }        }
       },
 
+      // DATA FOR DISPLAY
       series(){
         if(!this.dates) return {}
         return [

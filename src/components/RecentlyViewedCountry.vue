@@ -8,10 +8,11 @@
     <img :src="'https://www.countryflags.io/' + country.CountryCode.toLowerCase() + '/flat/64.png'">
     <p class='w-full font-heading text-center'>{{getFormatedNumber(country.TotalConfirmed)}}</p>
     </router-link>
-    <!-- {{country.CountryCode.toLowerCase()}} -->
   </div>
 </template>
 <script>
+import formatNumber from '../functions/formatNumber'
+
   export default{
     props : {
       country : {
@@ -34,7 +35,7 @@
 
     methods : {
        getFormatedNumber(val){
-        return new Intl.NumberFormat('en-US').format(val)
+        return formatNumber(val)
       }
     }
   }

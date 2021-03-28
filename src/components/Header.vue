@@ -115,8 +115,6 @@
   import IconDropDownArrow from './Icons/IconDropDownArrow.vue'
   import IconHamburger from './Icons/IconHamburger.vue'
 
-
-
   export default {
     components : {
       IconDropDownArrow,
@@ -148,7 +146,6 @@
         this.$router.push(locale.split('-')[0])
       },
     },
-
 
     // WATCHER FOR SETTING LOCALE
     watch:{

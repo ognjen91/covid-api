@@ -35,11 +35,9 @@
 
     mounted(){
       this.currentValue = this.number > this.conutMinus? (this.number - this.conutMinus) : 0
-      // setTimeout(()=>{
         setInterval(()=>{
           if(this.currentValue < this.number) this.currentValue++
         }, 1)
-      // }, 5)
     }
   }
 </script>
