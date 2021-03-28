@@ -134,6 +134,7 @@
     },
 
     computed : {
+      
         currentLocaleShorhand(){
           return this.$i18n.locale.split('-')[0]
         },
