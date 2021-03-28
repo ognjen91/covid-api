@@ -150,7 +150,7 @@
     // WATCHER FOR SETTING LOCALE
     watch:{
       $route (to, from){
-        let locale = to.params.locale || 'en'
+        let locale = to.params.locale || 'sr'
         this.$i18n.locale = locale
       }
 }
