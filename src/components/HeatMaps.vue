@@ -32,7 +32,7 @@
 </template>
 
 <script>
-  import { defineProps, ref, computed } from 'vue'
+  import { defineProps, reactive, ref, computed } from 'vue'
   import { useStore } from 'vuex'
   import VueApexCharts from "vue3-apexcharts";
   import moment from 'moment'

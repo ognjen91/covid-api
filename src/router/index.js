@@ -11,7 +11,7 @@ const router = createRouter({
   history: routerHistory,
   routes: [
     {
-      path: '/:locale(sr|en|)',
+      path: '/:locale(sr|en|)?',
       name: 'home',
       component: Home
     },

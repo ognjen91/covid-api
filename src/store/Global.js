@@ -1,4 +1,5 @@
 import axios from 'axios'
+import toastr from 'toastr'
 
 export default {
   namespaced: true,
@@ -52,11 +53,12 @@ export default {
           context.commit('countries/SET_COUNTRIES_DATA', data.Countries.filter(country => country.Slug !== 'kosovo'), { root: true })
         })
         .catch(function (error) {
-          console.log(error);
+          toastr["error"]("Error Receiving Data. Page will reload now.")
+
+          setTimeout(()=>{
+            location.reload();
+          }, 2000)
         })
-        .then(function () {
-          // always executed
-        });
     }
   }
 

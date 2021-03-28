@@ -52,15 +52,12 @@ export default {
           context.commit('SET_COUNTRY_FULL_DATA', payload)
         })
         .catch(function (error) {
-          toastr["error"]("Error Receiving Full Data")
+          toastr["error"]("Error Receiving Full Data. Page will reload now.")
 
           setTimeout(()=>{
             location.reload();
           }, 2000)
         })
-        .then(function () {
-          // always executed
-        });
     }
   }
 
