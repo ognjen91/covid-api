@@ -6,18 +6,18 @@
 
           <!-- NAVIGATION, BIG SCREEN -->
           <div class="flex items-center">
-              <router-link :to="'/'+$i18n.locale.split('-')[0]" tag='div' class="flex-shrink-0">
+              <router-link :to="'/'+$i18n.locale" tag='div' class="flex-shrink-0">
                 <img class="h-8 w-8" src="../assets/logo.png" alt="Virus">
               </router-link>
               <div class="hidden md:block">
                 <div class="ml-10 flex items-baseline space-x-4">
-                  <router-link :to="{ name : 'home', params : {locale : currentLocaleShorhand}}" class="text-white px-3 py-2 rounded-md text-sm font-medium">{{$t('header.home')}}</router-link>
+                  <router-link :to="{ name : 'home', params : {locale : $i18n.locale}}" class="text-white px-3 py-2 rounded-md text-sm font-medium">{{$t('header.home')}}</router-link>
 
-                  <router-link :to="{ name : 'countries', params : {locale : currentLocaleShorhand}}" class="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">{{$t('header.countries')}}</router-link>
+                  <router-link :to="{ name : 'countries', params : {locale : $i18n.locale}}" class="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">{{$t('header.countries')}}</router-link>
 
-                  <router-link :to="{ name : 'users-feed', params : {locale : currentLocaleShorhand}}" class="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">{{$t('header.feed')}}</router-link>
+                  <router-link :to="{ name : 'users-feed', params : {locale : $i18n.locale}}" class="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">{{$t('header.feed')}}</router-link>
 
-                  <router-link :to="{ name : 'about', params : {locale : currentLocaleShorhand}}" class="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">{{$t('header.about')}}</router-link>
+                  <router-link :to="{ name : 'about', params : {locale : $i18n.locale}}" class="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">{{$t('header.about')}}</router-link>
 
                 </div>
               </div>
@@ -70,13 +70,13 @@
       <div class="md:hidden" id="mobile-menu" v-if="showMenuDropdown">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 font-heading">
           <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-          <router-link :to="{ name : 'home', params : {locale : currentLocaleShorhand}}" @click="showMenuDropdown = !showMenuDropdown" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">{{$t('header.home')}}</router-link>
+          <router-link :to="{ name : 'home', params : {locale : $i18n.locale}}" @click="showMenuDropdown = !showMenuDropdown" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">{{$t('header.home')}}</router-link>
 
-          <router-link :to="{ name : 'countries', params : {locale : currentLocaleShorhand}}" @click="showMenuDropdown = !showMenuDropdown" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">{{$t('header.countries')}}</router-link>
+          <router-link :to="{ name : 'countries', params : {locale : $i18n.locale}}" @click="showMenuDropdown = !showMenuDropdown" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">{{$t('header.countries')}}</router-link>
 
-          <router-link :to="{ name : 'users-feed', params : {locale : currentLocaleShorhand}}" @click="showMenuDropdown = !showMenuDropdown" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">{{$t('header.feed')}}</router-link>
+          <router-link :to="{ name : 'users-feed', params : {locale : $i18n.locale}}" @click="showMenuDropdown = !showMenuDropdown" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">{{$t('header.feed')}}</router-link>
 
-          <router-link :to="{ name : 'about', params : {locale : currentLocaleShorhand}}" @click="showMenuDropdown = !showMenuDropdown" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">{{$t('header.about')}}</router-link>
+          <router-link :to="{ name : 'about', params : {locale : $i18n.locale}}" @click="showMenuDropdown = !showMenuDropdown" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">{{$t('header.about')}}</router-link>
 
         </div>
 
@@ -131,13 +131,6 @@
           en : 'GB',
         }
       }
-    },
-
-    computed : {
-      
-        currentLocaleShorhand(){
-          return this.$i18n.locale.split('-')[0]
-        },
     },
 
 

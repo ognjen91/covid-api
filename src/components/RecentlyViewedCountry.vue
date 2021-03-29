@@ -2,7 +2,7 @@
   <div v-if="country" :class="{'hidden' : $route.name == 'country' &&  currentCountrySlug == country.Slug}">
     <router-link
     tag='div'
-    :to="{ name: 'country', params: { locale: currentLocaleShorhand, slug: country.Slug }}"
+    :to="{ name: 'country', params: { locale: $i18n.locale, slug: country.Slug }}"
     class='flex flex-col'
     >
     <img :src="'https://www.countryflags.io/' + country.CountryCode.toLowerCase() + '/flat/64.png'">
@@ -24,12 +24,6 @@ import formatNumber from '../functions/formatNumber'
         required: false,
         default : ""
       }
-    },
-
-    computed : {
-        currentLocaleShorhand(){
-          return this.$i18n.locale.split('-')[0]
-        }
     },
 
 

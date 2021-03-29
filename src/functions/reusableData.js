@@ -3,7 +3,7 @@ import { ref, computed } from "vue";
 
 
 export default function(){
-  const currentLocale = computed(()=> useRoute().params.locale)
+  const currentLocale = computed(()=> useRoute().params.locale || 'sr')
 
   return {
     currentLocale

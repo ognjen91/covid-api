@@ -125,14 +125,14 @@
 
       const date = computed(() => {
         if(!countryData) return null
-        return moment(countryData.Date).format('MMMM DD YYYY')
+        return moment(countryData.Date).format('DD. MM. YYYY.')
       })
 
       // DATE OF THE FIRST CONFIRMED CASE
       const firstConfirmedCaseDate = computed(() => {
         if(!countryData.value.dates) return null
         if(!countryData.value.dates.length) return null
-        return moment(countryData.value.dates[0].Date).format('MMMM DD YYYY')
+        return moment(countryData.value.dates[0].Date).format('DD. MM. YYYY.')
       })
 
 
